@@ -2,11 +2,15 @@ package com.salonbelleza.app.controller;
 
 import com.salonbelleza.app.dto.LoginRequest;
 import com.salonbelleza.app.dto.LoginResponse;
+import com.salonbelleza.app.dto.RegisterRequest;
+import com.salonbelleza.app.entity.Rol;
 import com.salonbelleza.app.entity.Usuario;
+import com.salonbelleza.app.repository.RolRepository;
 import com.salonbelleza.app.repository.UsuarioRepository;
 import com.salonbelleza.app.security.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +24,7 @@ import java.util.Map;
 public class AuthController {
 
     private final UsuarioRepository usuarioRepository;
+    private final RolRepository rolRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
@@ -78,6 +83,46 @@ public class AuthController {
                 .nombreCompleto(usuario.getNombreCompleto())
                 .rol(rolNombre)
                 .debeCambiarPass(Boolean.TRUE.equals(usuario.getDebeCambiarPass()))
+                .build());
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
+        if (usuarioRepository.existsByEmail(req.getEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error", "Ya existe una cuenta con ese correo."));
+        }
+
+        Rol rolCliente = rolRepository.findByNombre("Cliente")
+                .orElseThrow(() -> new RuntimeException("Rol Cliente no encontrado"));
+
+        String username = req.getEmail().split("@")[0] + "_" + System.currentTimeMillis() % 10000;
+
+        Usuario usuario = Usuario.builder()
+                .email(req.getEmail())
+                .username(username)
+                .passwordHash(passwordEncoder.encode(req.getPassword()))
+                .nombreCompleto(req.getFirstName() + " " + req.getLastName())
+                .telefono(req.getPhone())
+                .rol(rolCliente)
+                .estado("Activo")
+                .intentosFallidos((short) 0)
+                .debeCambiarPass(false)
+                .createdAt(OffsetDateTime.now())
+                .updatedAt(OffsetDateTime.now())
+                .build();
+
+        usuarioRepository.save(usuario);
+
+        String token = jwtUtil.generate(usuario.getId(), usuario.getEmail(), rolCliente.getNombre());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(LoginResponse.builder()
+                .token(token)
+                .userId(usuario.getId())
+                .email(usuario.getEmail())
+                .nombreCompleto(usuario.getNombreCompleto())
+                .rol(rolCliente.getNombre())
+                .debeCambiarPass(false)
                 .build());
     }
 
