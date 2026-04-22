@@ -10,3 +10,8 @@ target/
 .classpath
 .project
 *.log
+
+# Local secrets — never commit
+application-local.properties
+application-*.properties
+!application.properties
