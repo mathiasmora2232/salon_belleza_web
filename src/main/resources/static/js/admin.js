@@ -1,3 +1,13 @@
+// Rellena nombre/rol del usuario desde localStorage y conecta logout
+const usuario = getUsuario();
+if (usuario) {
+  const nameEl = document.getElementById('sidebarUserName');
+  const roleEl = document.getElementById('sidebarUserRole');
+  if (nameEl) nameEl.textContent = usuario.nombreCompleto || usuario.email;
+  if (roleEl) roleEl.textContent = usuario.rol || '';
+}
+document.getElementById('logoutBtn')?.addEventListener('click', logout);
+
 // Sidebar toggle (collapse/expand)
 const sidebar       = document.getElementById('sidebar');
 const sidebarToggle = document.getElementById('sidebarToggle');
