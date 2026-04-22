@@ -9,4 +9,6 @@ import java.util.List;
 public interface MetodoPagoRepository extends JpaRepository<MetodoPago, Long> {
 
     List<MetodoPago> findByActivoTrue();
+
+    java.util.Optional<MetodoPago> findByCodigo(String codigo);
 }

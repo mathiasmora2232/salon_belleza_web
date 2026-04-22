@@ -12,4 +12,6 @@ public interface EstilistaRepository extends JpaRepository<Estilista, Long> {
     List<Estilista> findByEstado(String estado);
 
     Optional<Estilista> findByUsuarioId(Long usuarioId);
+
+    long countByEstado(String estado);
 }

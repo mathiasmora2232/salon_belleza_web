@@ -122,4 +122,29 @@ public class CitaService {
     public CitaEstado saveEstado(CitaEstado estado) {
         return citaEstadoRepository.save(estado);
     }
+
+    // --- Dashboard / Business Logic ---
+
+    @Transactional(readOnly = true)
+    public long countCitasHoy() {
+        return citaRepository.countByFecha(LocalDate.now());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Cita> citasHoy() {
+        return citaRepository.findByFechaOrderByHoraInicio(LocalDate.now());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Cita> completadasSinFactura() {
+        return citaRepository.findCompletadasSinFactura();
+    }
+
+    public Cita cambiarEstado(Long citaId, String codigoEstado) {
+        Cita cita = findById(citaId);
+        CitaEstado nuevoEstado = citaEstadoRepository.findByCodigo(codigoEstado)
+                .orElseThrow(() -> new EntityNotFoundException("Estado no encontrado: " + codigoEstado));
+        cita.setEstado(nuevoEstado);
+        return citaRepository.save(cita);
+    }
 }

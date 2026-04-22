@@ -18,4 +18,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Optional<Cliente> findByNumeroIdentificacion(String numeroIdentificacion);
 
     List<Cliente> findByNombreContainingIgnoreCaseOrApellidoContainingIgnoreCase(String nombre, String apellido);
+
+    long countByEstado(String estado);
 }

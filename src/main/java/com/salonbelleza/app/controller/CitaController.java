@@ -116,4 +116,21 @@ public class CitaController {
     public ResponseEntity<CitaEstado> createEstado(@RequestBody CitaEstado estado) {
         return ResponseEntity.status(HttpStatus.CREATED).body(citaService.saveEstado(estado));
     }
+
+    // Workflow endpoints
+
+    @GetMapping("/hoy")
+    public ResponseEntity<List<Cita>> getCitasHoy() {
+        return ResponseEntity.ok(citaService.citasHoy());
+    }
+
+    @GetMapping("/completadas-sin-factura")
+    public ResponseEntity<List<Cita>> getCompletadasSinFactura() {
+        return ResponseEntity.ok(citaService.completadasSinFactura());
+    }
+
+    @PatchMapping("/{id}/estado/{codigo}")
+    public ResponseEntity<Cita> cambiarEstado(@PathVariable Long id, @PathVariable String codigo) {
+        return ResponseEntity.ok(citaService.cambiarEstado(id, codigo));
+    }
 }

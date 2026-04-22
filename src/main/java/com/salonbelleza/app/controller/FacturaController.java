@@ -4,10 +4,12 @@ import com.salonbelleza.app.entity.Factura;
 import com.salonbelleza.app.entity.FacturaItem;
 import com.salonbelleza.app.entity.FacturaPago;
 import com.salonbelleza.app.service.FacturaService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -94,5 +96,24 @@ public class FacturaController {
     public ResponseEntity<Void> deletePago(@PathVariable Long pagoId) {
         facturaService.deletePago(pagoId);
         return ResponseEntity.noContent().build();
+    }
+
+    // Workflow endpoints
+
+    @PostMapping("/desde-cita/{citaId}")
+    public ResponseEntity<Factura> crearDesdeCita(@PathVariable Long citaId) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(facturaService.crearDesdeCita(citaId));
+    }
+
+    @PostMapping("/{id}/pagar")
+    public ResponseEntity<Factura> pagar(@PathVariable Long id, @RequestBody PagoRequest req) {
+        return ResponseEntity.ok(facturaService.registrarPago(id, req.getMetodoPago(), req.getMonto(), req.getReferencia()));
+    }
+
+    @Data
+    static class PagoRequest {
+        private String metodoPago;
+        private BigDecimal monto;
+        private String referencia;
     }
 }

@@ -13,4 +13,6 @@ public interface ServicioRepository extends JpaRepository<Servicio, Long> {
     List<Servicio> findByEstado(String estado);
 
     List<Servicio> findByCategoriaId(Long categoriaId);
+
+    long countByEstado(String estado);
 }
