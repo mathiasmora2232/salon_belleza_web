@@ -79,28 +79,55 @@ document.getElementById('toggleRegPwd').addEventListener('click', () => {
 });
 
 // Form submit (step 2)
-document.getElementById('registerForm').addEventListener('submit', (e) => {
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const errorBox = document.getElementById('regError');
-  const email    = document.getElementById('regEmail').value.trim();
-  const password = document.getElementById('regPassword').value;
-  const confirm  = document.getElementById('regConfirm').value;
-  const terms    = document.getElementById('terms').checked;
+  const errorBox  = document.getElementById('regError');
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName  = document.getElementById('lastName').value.trim();
+  const phone     = document.getElementById('phone').value.trim();
+  const email     = document.getElementById('regEmail').value.trim();
+  const password  = document.getElementById('regPassword').value;
+  const confirm   = document.getElementById('regConfirm').value;
+  const terms     = document.getElementById('terms').checked;
 
   errorBox.classList.remove('visible');
 
-  if (!email) { showError('Ingresa tu correo electrónico.'); return; }
+  if (!email)              { showError('Ingresa tu correo electrónico.'); return; }
   if (password.length < 8) { showError('La contraseña debe tener al menos 8 caracteres.'); return; }
   if (password !== confirm) { showError('Las contraseñas no coinciden.'); return; }
-  if (!terms) { showError('Debes aceptar los términos de uso.'); return; }
+  if (!terms)              { showError('Debes aceptar los términos de uso.'); return; }
 
   const btn = document.getElementById('submitBtn');
   btn.classList.add('loading');
+  btn.disabled = true;
 
-  setTimeout(() => {
+  try {
+    const res = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName, lastName, phone, email, password }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('usuario', JSON.stringify({
+        userId: data.userId,
+        email: data.email,
+        nombreCompleto: data.nombreCompleto,
+        rol: data.rol,
+      }));
+      goToStep(2);
+    } else {
+      showError(data.error || data.message || 'No se pudo crear la cuenta.');
+    }
+  } catch {
+    showError('Error de conexión. Intenta de nuevo.');
+  } finally {
     btn.classList.remove('loading');
-    goToStep(2);
-  }, 1400);
+    btn.disabled = false;
+  }
 
   function showError(msg) {
     errorBox.textContent = msg;
