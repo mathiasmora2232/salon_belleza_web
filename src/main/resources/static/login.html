@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesión — Belleza & Estilo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+
+  <div class="login-layout">
+
+    <!-- PANEL IZQUIERDO: MARCA -->
+    <div class="login-panel">
+      <div class="login-panel__inner">
+
+        <a href="index.html" class="login-panel__logo">Belleza <span>&</span> Estilo</a>
+
+        <div class="login-panel__content">
+          <p class="login-panel__tag">✦ Tu destino de belleza</p>
+          <h1 class="login-panel__title">Donde la<br/>elegancia<br/>se convierte<br/>en arte</h1>
+          <p class="login-panel__quote">"La belleza no es un lujo,<br/>es una forma de cuidarte."</p>
+        </div>
+
+        <div class="login-panel__deco" aria-hidden="true">
+          <div class="deco-ring deco-ring--1"></div>
+          <div class="deco-ring deco-ring--2"></div>
+          <div class="deco-dot"></div>
+        </div>
+
+        <div class="login-panel__stats">
+          <div class="panel-stat">
+            <span class="panel-stat__num">2.5K+</span>
+            <span class="panel-stat__label">Clientes felices</span>
+          </div>
+          <div class="panel-stat__sep"></div>
+          <div class="panel-stat">
+            <span class="panel-stat__num">10+</span>
+            <span class="panel-stat__label">Años de experiencia</span>
+          </div>
+          <div class="panel-stat__sep"></div>
+          <div class="panel-stat">
+            <span class="panel-stat__num">98%</span>
+            <span class="panel-stat__label">Satisfacción</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PANEL DERECHO: FORMULARIO -->
+    <div class="login-form-side">
+      <div class="login-form-wrap">
+
+        <div class="login-form__header">
+          <h2 class="login-form__title">Bienvenida de vuelta</h2>
+          <p class="login-form__sub">Inicia sesión para gestionar tus citas, pedidos y acceder a precios exclusivos.</p>
+        </div>
+
+        <form class="lform" id="loginForm" novalidate>
+
+          <div class="lform__group">
+            <label class="lform__label" for="email">Correo electrónico</label>
+            <div class="lform__input-wrap">
+              <span class="lform__icon" aria-hidden="true">✉</span>
+              <input
+                class="lform__input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="tu@correo.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <div class="lform__group">
+            <div class="lform__label-row">
+              <label class="lform__label" for="password">Contraseña</label>
+              <a href="#" class="lform__forgot">¿Olvidaste tu contraseña?</a>
+            </div>
+            <div class="lform__input-wrap">
+              <span class="lform__icon" aria-hidden="true">◈</span>
+              <input
+                class="lform__input"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+              />
+              <button type="button" class="lform__eye" id="togglePwd" aria-label="Mostrar contraseña">
+                <svg class="eye-icon" id="eyeShow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <svg class="eye-icon eye-icon--hidden" id="eyeHide" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                  <line x1="1" y1="1" x2="23" y2="23"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="lform__check">
+            <label class="lform__check-label">
+              <input type="checkbox" id="remember" name="remember" />
+              <span class="lform__check-box"></span>
+              Recordarme en este dispositivo
+            </label>
+          </div>
+
+          <button type="submit" class="lform__btn">
+            <span class="lform__btn-text">Iniciar sesión</span>
+            <span class="lform__btn-loader" id="btnLoader" aria-hidden="true"></span>
+          </button>
+
+          <div class="lform__error" id="loginError" role="alert">
+            Correo o contraseña incorrectos. Intenta de nuevo.
+          </div>
+
+          <div class="lform__divider"><span>o continúa con</span></div>
+
+          <button type="button" class="lform__social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+              <path fill="#34A853" d="M12.255 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96h-3.98v3.09C3.515 21.3 7.615 24 12.255 24z"/>
+              <path fill="#FBBC05" d="M5.525 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62h-3.98a11.86 11.86 0 0 0 0 10.76l3.98-3.09z"/>
+              <path fill="#EA4335" d="M12.255 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C18.205 1.19 15.495 0 12.255 0c-4.64 0-8.74 2.7-10.71 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+            </svg>
+            Continuar con Google
+          </button>
+
+        </form>
+
+        <p class="login-form__register">
+          ¿Aún no tienes cuenta?
+          <a href="register.html">Regístrate gratis</a>
+        </p>
+
+        <a href="index.html" class="login-form__back">← Volver al inicio</a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Día de novia & Eventos — Belleza & Estilo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/evento.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="enav">
+    <a href="index.html" class="enav__logo">Belleza <span>&</span> Estilo</a>
+    <nav class="enav__links">
+      <a href="index.html">Inicio</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#formulario">Agendar</a>
+      <a href="login.html" class="enav__btn">Mi cuenta</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="evento-hero">
+    <div class="evento-hero__overlay"></div>
+    <div class="evento-hero__content">
+      <span class="evento-hero__tag">✦ Servicio exclusivo</span>
+      <h1 class="evento-hero__title">Día de novia<br/>& eventos grupales</h1>
+      <p class="evento-hero__desc">Coordina tu boda, quinceañera o evento especial con toda tu comitiva en un solo lugar, el mismo día, con un timeline personalizado y cero caos logístico.</p>
+      <div class="evento-hero__actions">
+        <a href="#formulario" class="ebtn ebtn--primary">Agendar mi evento</a>
+        <a href="#como-funciona" class="ebtn ebtn--ghost">Ver cómo funciona</a>
+      </div>
+    </div>
+    <div class="evento-hero__badges">
+      <div class="hero-badge">
+        <span class="hero-badge__num">8</span>
+        <span class="hero-badge__label">Personas simultáneas</span>
+      </div>
+      <div class="hero-badge">
+        <span class="hero-badge__num">100%</span>
+        <span class="hero-badge__label">Coordinado</span>
+      </div>
+      <div class="hero-badge">
+        <span class="hero-badge__num">0</span>
+        <span class="hero-badge__label">Estrés logístico</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="section" id="como-funciona">
+    <div class="econtainer">
+      <p class="etag">Proceso simple</p>
+      <h2 class="etitle">Cómo funciona</h2>
+      <div class="steps-grid">
+        <div class="estep">
+          <div class="estep__num">01</div>
+          <h3 class="estep__title">Registra tu grupo</h3>
+          <p class="estep__text">Agrega a todos los integrantes: novia, mamá, damas de honor, etc. Hasta 8 personas en un mismo evento.</p>
+        </div>
+        <div class="estep">
+          <div class="estep__num">02</div>
+          <h3 class="estep__title">Asigna servicios</h3>
+          <p class="estep__text">Cada persona elige sus servicios. El sistema calcula automáticamente los tiempos y coordina a los estilistas.</p>
+        </div>
+        <div class="estep">
+          <div class="estep__num">03</div>
+          <h3 class="estep__title">Ve el timeline</h3>
+          <p class="estep__text">Genera un timeline visual que muestra quién está con quién y a qué hora. Sin traslapes, sin sorpresas.</p>
+        </div>
+        <div class="estep">
+          <div class="estep__num">04</div>
+          <h3 class="estep__title">Notifica a todos</h3>
+          <p class="estep__text">Comparte el plan por WhatsApp a toda la comitiva y, si quieres, notifica también al fotógrafo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO + TIMELINE -->
+  <section class="section section--light" id="formulario">
+    <div class="econtainer">
+      <p class="etag">Agendamiento grupal</p>
+      <h2 class="etitle">Planifica tu evento</h2>
+
+      <div class="planner">
+
+        <!-- LEFT: FORM -->
+        <div class="planner__form">
+
+          <!-- Event info -->
+          <div class="planner-card">
+            <h3 class="planner-card__title">Datos del evento</h3>
+            <div class="efield">
+              <label class="elabel">Tipo de evento</label>
+              <div class="eradio-group">
+                <label class="eradio eradio--active" data-type="boda">
+                  <input type="radio" name="eventType" value="boda" checked />
+                  <span class="eradio__icon">💍</span>
+                  <span>Boda</span>
+                </label>
+                <label class="eradio" data-type="quinceaños">
+                  <input type="radio" name="eventType" value="quinceaños" />
+                  <span class="eradio__icon">✨</span>
+                  <span>Quinceañera</span>
+                </label>
+                <label class="eradio" data-type="graduacion">
+                  <input type="radio" name="eventType" value="graduacion" />
+                  <span class="eradio__icon">🎓</span>
+                  <span>Graduación</span>
+                </label>
+                <label class="eradio" data-type="otro">
+                  <input type="radio" name="eventType" value="otro" />
+                  <span class="eradio__icon">🌟</span>
+                  <span>Otro</span>
+                </label>
+              </div>
+            </div>
+            <div class="efield-row">
+              <div class="efield">
+                <label class="elabel" for="eventDate">Fecha del evento</label>
+                <input class="einput" type="date" id="eventDate" />
+              </div>
+              <div class="efield">
+                <label class="elabel" for="eventTime">Hora de inicio en salón</label>
+                <select class="einput" id="eventTime">
+                  <option value="07:00">07:00 am</option>
+                  <option value="08:00">08:00 am</option>
+                  <option value="09:00" selected>09:00 am</option>
+                  <option value="10:00">10:00 am</option>
+                  <option value="11:00">11:00 am</option>
+                  <option value="12:00">12:00 pm</option>
+                </select>
+              </div>
+            </div>
+            <div class="efield">
+              <label class="elabel" for="contactName">Nombre de contacto</label>
+              <input class="einput" type="text" id="contactName" placeholder="Nombre de la novia o responsable" />
+            </div>
+            <div class="efield">
+              <label class="elabel" for="contactPhone">WhatsApp</label>
+              <input class="einput" type="tel" id="contactPhone" placeholder="+593 98 765 4321" />
+            </div>
+          </div>
+
+          <!-- Group members -->
+          <div class="planner-card">
+            <div class="planner-card__header">
+              <h3 class="planner-card__title">Integrantes del grupo</h3>
+              <button type="button" class="eadd-btn" id="addMember">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                Agregar
+              </button>
+            </div>
+            <div id="membersList" class="members-list">
+              <!-- Members injected by JS -->
+            </div>
+          </div>
+
+          <!-- Photographer -->
+          <div class="planner-card">
+            <h3 class="planner-card__title">Notificar al fotógrafo</h3>
+            <div class="efield-row">
+              <div class="efield">
+                <label class="elabel" for="photoName">Nombre del fotógrafo</label>
+                <input class="einput" type="text" id="photoName" placeholder="Opcional" />
+              </div>
+              <div class="efield">
+                <label class="elabel" for="photoPhone">WhatsApp</label>
+                <input class="einput" type="tel" id="photoPhone" placeholder="+593..." />
+              </div>
+            </div>
+            <p class="efield-note">Recibirá el timeline con los horarios de cada servicio automáticamente.</p>
+          </div>
+
+          <button type="button" class="ebtn ebtn--primary ebtn--full" id="generateBtn">
+            Generar timeline
+          </button>
+        </div>
+
+        <!-- RIGHT: TIMELINE -->
+        <div class="planner__timeline">
+          <div class="timeline-panel" id="timelinePanel">
+            <div class="timeline-empty" id="timelineEmpty">
+              <div class="timeline-empty__icon">✦</div>
+              <h3>Tu timeline aparecerá aquí</h3>
+              <p>Agrega integrantes y servicios, luego pulsa "Generar timeline"</p>
+            </div>
+            <div class="timeline-content" id="timelineContent" style="display:none">
+              <div class="timeline-header">
+                <h3 class="timeline-title" id="timelineTitle">Timeline del evento</h3>
+                <div class="timeline-actions">
+                  <button type="button" class="taction-btn" id="shareWhatsApp">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                    </svg>
+                    Compartir
+                  </button>
+                  <button type="button" class="taction-btn" id="printTimeline">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <polyline points="6 9 6 2 18 2 18 9"/>
+                      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                      <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    Imprimir
+                  </button>
+                </div>
+              </div>
+              <div class="gantt-wrap">
+                <div id="ganttChart" class="gantt"></div>
+              </div>
+              <div class="timeline-summary" id="timelineSummary"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PAQUETES -->
+  <section class="section">
+    <div class="econtainer">
+      <p class="etag">Precios transparentes</p>
+      <h2 class="etitle">Paquetes para eventos</h2>
+      <div class="packs">
+        <div class="pack">
+          <div class="pack__header">
+            <h3 class="pack__name">Esencial</h3>
+            <p class="pack__sub">Hasta 3 personas</p>
+          </div>
+          <div class="pack__price">Desde <strong>$120</strong></div>
+          <ul class="pack__list">
+            <li>✓ Coordinación de horarios</li>
+            <li>✓ Timeline digital</li>
+            <li>✓ Notificación WhatsApp</li>
+            <li>✓ 1 estilista dedicado</li>
+            <li class="muted">✗ Fotógrafo coordinado</li>
+          </ul>
+          <a href="#formulario" class="ebtn ebtn--outline">Elegir</a>
+        </div>
+        <div class="pack pack--featured">
+          <div class="pack__badge">Más elegido</div>
+          <div class="pack__header">
+            <h3 class="pack__name">Completo</h3>
+            <p class="pack__sub">Hasta 6 personas</p>
+          </div>
+          <div class="pack__price">Desde <strong>$280</strong></div>
+          <ul class="pack__list">
+            <li>✓ Coordinación de horarios</li>
+            <li>✓ Timeline digital e impreso</li>
+            <li>✓ Notificación a todo el grupo</li>
+            <li>✓ 2-3 estilistas dedicados</li>
+            <li>✓ Notificación al fotógrafo</li>
+          </ul>
+          <a href="#formulario" class="ebtn ebtn--primary">Elegir</a>
+        </div>
+        <div class="pack">
+          <div class="pack__header">
+            <h3 class="pack__name">Premium</h3>
+            <p class="pack__sub">Hasta 10 personas</p>
+          </div>
+          <div class="pack__price">Desde <strong>$480</strong></div>
+          <ul class="pack__list">
+            <li>✓ Todo lo del plan Completo</li>
+            <li>✓ Asistente dedicada el día</li>
+            <li>✓ Snacks y bebidas incluidos</li>
+            <li>✓ Sesión prueba previa</li>
+            <li>✓ Coordinación con venue</li>
+          </ul>
+          <a href="#formulario" class="ebtn ebtn--outline">Elegir</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="efooter">
+    <a href="index.html" class="efooter__logo">Belleza <span>&</span> Estilo</a>
+    <p>¿Tienes dudas? Escríbenos al <strong>+593 98 765 4321</strong> o a <strong>hola@bellezayestilo.ec</strong></p>
+    <p class="efooter__copy">&copy; 2026 Belleza & Estilo. Todos los derechos reservados.</p>
+  </footer>
+
+  <link rel="stylesheet" href="css/chatbot.css" />
+  <script src="js/evento.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

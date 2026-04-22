@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Belleza & Estilo — Salón de Belleza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <div class="nav__logo">Belleza <span>&</span> Estilo</div>
+    <nav class="nav__links">
+      <a href="#servicios">Servicios</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+      <a href="evento.html" class="btn btn--nav-login btn--nav-evento">Día de novia</a>
+      <a href="login.html" class="btn btn--nav-login">Iniciar sesión</a>
+      <a href="#reservar" class="btn btn--outline">Reservar cita</a>
+    </nav>
+    <button type="button" class="nav__burger" id="burger">&#9776;</button>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button type="button" class="mobile-menu__close" id="mobileClose">&#10005;</button>
+    <div class="mobile-menu__logo">Belleza <span>&</span> Estilo</div>
+    <nav class="mobile-menu__links">
+      <a href="#servicios">Servicios</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="mobile-menu__actions">
+      <a href="login.html" class="btn btn--primary">Iniciar sesión</a>
+      <a href="#reservar" class="btn btn--ghost">Reservar cita</a>
+    </div>
+  </div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <div class="hero__text">
+        <p class="hero__sub">Tu belleza, nuestra pasión</p>
+        <h1 class="hero__title">El arte de<br />cuidarte</h1>
+        <p class="hero__desc">Servicios premium de peluquería, estética y bienestar<br />en un ambiente diseñado para ti.</p>
+        <div class="hero__actions">
+          <a href="#reservar" class="btn btn--primary">Reservar cita</a>
+          <a href="#catalogo" class="btn btn--ghost">Ver catálogo</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__circle hero__circle--1"></div>
+        <div class="hero__circle hero__circle--2"></div>
+        <div class="hero__circle hero__circle--3"></div>
+        <div class="hero__glass">
+          <span class="hero__glass-num">2 500+</span>
+          <span class="hero__glass-txt">Clientes felices</span>
+        </div>
+        <div class="hero__glass hero__glass--sm">
+          <span class="hero__glass-num">98%</span>
+          <span class="hero__glass-txt">Satisfacción</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll"><span></span></div>
+  </section>
+
+  <!-- FRANJA DESTACADA -->
+  <div class="badge-bar">
+    <div class="badge-bar__item">✦ Más de 10 años de experiencia</div>
+    <div class="badge-bar__sep">|</div>
+    <div class="badge-bar__item">✦ Productos de alta gama</div>
+    <div class="badge-bar__sep">|</div>
+    <div class="badge-bar__item">✦ Equipo certificado</div>
+    <div class="badge-bar__sep">|</div>
+    <div class="badge-bar__item">✦ Atención personalizada</div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <p class="section__tag">Lo que ofrecemos</p>
+      <h2 class="section__title">Nuestros servicios</h2>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card__icon">✂</div>
+          <h3 class="card__title">Corte & Peinado</h3>
+          <p class="card__text">Cortes clásicos y modernos adaptados a tu estilo. Peinados para el día a día y ocasiones especiales.</p>
+          <span class="card__price">Desde $15</span>
+        </div>
+
+        <div class="card card--featured">
+          <div class="card__badge">Más popular</div>
+          <div class="card__icon">✦</div>
+          <h3 class="card__title">Color & Mechas</h3>
+          <p class="card__text">Coloraciones personalizadas, balayage, mechas y técnicas de decoloración con productos premium.</p>
+          <span class="card__price">Desde $45</span>
+        </div>
+
+        <div class="card">
+          <div class="card__icon">◈</div>
+          <h3 class="card__title">Tratamientos</h3>
+          <p class="card__text">Hidratación profunda, keratina, botox capilar y tratamientos anticaída para tu cabello.</p>
+          <span class="card__price">Desde $30</span>
+        </div>
+
+        <div class="card">
+          <div class="card__icon">❋</div>
+          <h3 class="card__title">Maquillaje</h3>
+          <p class="card__text">Maquillaje social, nupcial y artístico. Sesiones de asesoría de imagen y automaquillaje.</p>
+          <span class="card__price">Desde $25</span>
+        </div>
+
+        <div class="card">
+          <div class="card__icon">◯</div>
+          <h3 class="card__title">Uñas</h3>
+          <p class="card__text">Manicure, pedicure, uñas de gel, acrílico y nail art. Diseños únicos para cada ocasión.</p>
+          <span class="card__price">Desde $12</span>
+        </div>
+
+        <div class="card">
+          <div class="card__icon">☽</div>
+          <h3 class="card__title">Facial & Spa</h3>
+          <p class="card__text">Limpiezas faciales, masajes relajantes y rituales de belleza para renovar tu energía.</p>
+          <span class="card__price">Desde $35</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="section section--dark" id="equipo">
+    <div class="container">
+      <p class="section__tag">Conoce a los expertos</p>
+      <h2 class="section__title">Nuestro equipo</h2>
+      <div class="team">
+
+        <div class="team__card">
+          <div class="team__avatar team__avatar--1"></div>
+          <h3 class="team__name">Valentina Ríos</h3>
+          <p class="team__role">Colorista Senior</p>
+          <p class="team__exp">8 años de experiencia</p>
+        </div>
+
+        <div class="team__card">
+          <div class="team__avatar team__avatar--2"></div>
+          <h3 class="team__name">Andrés Morales</h3>
+          <p class="team__role">Barbero & Estilista</p>
+          <p class="team__exp">6 años de experiencia</p>
+        </div>
+
+        <div class="team__card">
+          <div class="team__avatar team__avatar--3"></div>
+          <h3 class="team__name">Gabriela Salas</h3>
+          <p class="team__role">Especialista en Uñas</p>
+          <p class="team__exp">5 años de experiencia</p>
+        </div>
+
+        <div class="team__card">
+          <div class="team__avatar team__avatar--4"></div>
+          <h3 class="team__name">Carolina Vega</h3>
+          <p class="team__role">Esteticista Facial</p>
+          <p class="team__exp">7 años de experiencia</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="section" id="galeria">
+    <div class="container">
+      <p class="section__tag">Nuestro trabajo</p>
+      <h2 class="section__title">Galería</h2>
+      <div class="gallery">
+        <div class="gallery__item gallery__item--lg gallery__item--color1">
+          <div class="gallery__label">Coloración</div>
+        </div>
+        <div class="gallery__item gallery__item--color2">
+          <div class="gallery__label">Balayage</div>
+        </div>
+        <div class="gallery__item gallery__item--color3">
+          <div class="gallery__label">Nail Art</div>
+        </div>
+        <div class="gallery__item gallery__item--color4">
+          <div class="gallery__label">Maquillaje</div>
+        </div>
+        <div class="gallery__item gallery__item--color5">
+          <div class="gallery__label">Tratamiento</div>
+        </div>
+        <div class="gallery__item gallery__item--color6">
+          <div class="gallery__label">Peinado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO PREVIEW -->
+  <section class="section section--catalog" id="catalogo">
+    <div class="container">
+      <p class="section__tag">Productos & servicios destacados</p>
+      <h2 class="section__title">Explora nuestro catálogo</h2>
+      <div class="catalog-grid">
+
+        <div class="catalog-card">
+          <div class="catalog-card__img catalog-card__img--1">
+            <span class="catalog-card__cat">Capilar</span>
+          </div>
+          <div class="catalog-card__body">
+            <h3 class="catalog-card__title">Shampoo Keratina Premium</h3>
+            <p class="catalog-card__desc">Formulación profesional para cabello dañado. Repara y protege desde la primera aplicación.</p>
+            <div class="catalog-card__footer">
+              <span class="catalog-card__price">$24.99</span>
+              <a href="login.html" class="btn btn--sm btn--primary">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-card">
+          <div class="catalog-card__img catalog-card__img--2">
+            <span class="catalog-card__cat">Coloración</span>
+          </div>
+          <div class="catalog-card__body">
+            <h3 class="catalog-card__title">Color & Mechas Balayage</h3>
+            <p class="catalog-card__desc">Técnica de decoloración que ilumina de forma natural. Resultados premium garantizados.</p>
+            <div class="catalog-card__footer">
+              <span class="catalog-card__price">Desde $65</span>
+              <a href="login.html" class="btn btn--sm btn--primary">Reservar</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-card">
+          <div class="catalog-card__img catalog-card__img--3">
+            <span class="catalog-card__cat">Tratamiento</span>
+          </div>
+          <div class="catalog-card__body">
+            <h3 class="catalog-card__title">Mascarilla Hidratante Profunda</h3>
+            <p class="catalog-card__desc">Nutrición intensiva con aceites esenciales. Resultado visible en una sola aplicación.</p>
+            <div class="catalog-card__footer">
+              <span class="catalog-card__price">$18.50</span>
+              <a href="login.html" class="btn btn--sm btn--primary">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-card">
+          <div class="catalog-card__img catalog-card__img--4">
+            <span class="catalog-card__cat">Uñas</span>
+          </div>
+          <div class="catalog-card__body">
+            <h3 class="catalog-card__title">Manicure Gel Completo</h3>
+            <p class="catalog-card__desc">Acabado impecable con gel de larga duración. Incluye diseño personalizado con nail art.</p>
+            <div class="catalog-card__footer">
+              <span class="catalog-card__price">$22</span>
+              <a href="login.html" class="btn btn--sm btn--primary">Reservar</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-card">
+          <div class="catalog-card__img catalog-card__img--5">
+            <span class="catalog-card__cat">Facial</span>
+          </div>
+          <div class="catalog-card__body">
+            <h3 class="catalog-card__title">Sérum Facial Anti-Edad</h3>
+            <p class="catalog-card__desc">Concentrado de ácido hialurónico y vitamina C. Hidratación profunda y efecto lifting.</p>
+            <div class="catalog-card__footer">
+              <span class="catalog-card__price">$38</span>
+              <a href="login.html" class="btn btn--sm btn--primary">Ver más</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="catalog-card">
+          <div class="catalog-card__img catalog-card__img--6">
+            <span class="catalog-card__cat">Peinado</span>
+          </div>
+          <div class="catalog-card__body">
+            <h3 class="catalog-card__title">Corte + Peinado Especial</h3>
+            <p class="catalog-card__desc">Servicio completo de corte personalizado más peinado. Perfecto para eventos especiales.</p>
+            <div class="catalog-card__footer">
+              <span class="catalog-card__price">Desde $35</span>
+              <a href="login.html" class="btn btn--sm btn--primary">Reservar</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="catalog-cta">
+        <a href="login.html" class="btn btn--primary">Ver catálogo completo</a>
+        <p class="catalog-cta__note">✦ Inicia sesión para ver precios especiales y disponibilidad en tiempo real</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTADÍSTICAS -->
+  <div class="stats">
+    <div class="stats__item">
+      <span class="stats__num">2 500+</span>
+      <span class="stats__label">Clientes satisfechos</span>
+    </div>
+    <div class="stats__item">
+      <span class="stats__num">10+</span>
+      <span class="stats__label">Años de experiencia</span>
+    </div>
+    <div class="stats__item">
+      <span class="stats__num">8</span>
+      <span class="stats__label">Estilistas expertos</span>
+    </div>
+    <div class="stats__item">
+      <span class="stats__num">98%</span>
+      <span class="stats__label">Clientes que vuelven</span>
+    </div>
+  </div>
+
+  <!-- RESERVAR -->
+  <section class="section section--accent" id="reservar">
+    <div class="container container--narrow">
+      <p class="section__tag">Agenda tu visita</p>
+      <h2 class="section__title">Reserva tu cita</h2>
+      <form class="form" id="reservaForm">
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="nombre">Nombre completo</label>
+            <input class="form__input" type="text" id="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="telefono">Teléfono</label>
+            <input class="form__input" type="tel" id="telefono" placeholder="0987654321" required />
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="servicio">Servicio</label>
+            <select class="form__input" id="servicio" required>
+              <option value="" disabled selected>Selecciona un servicio</option>
+              <option>Corte & Peinado</option>
+              <option>Color & Mechas</option>
+              <option>Tratamientos capilares</option>
+              <option>Maquillaje</option>
+              <option>Uñas</option>
+              <option>Facial & Spa</option>
+            </select>
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="estilista">Estilista</label>
+            <select class="form__input" id="estilista">
+              <option value="" disabled selected>Sin preferencia</option>
+              <option>Valentina Ríos</option>
+              <option>Andrés Morales</option>
+              <option>Gabriela Salas</option>
+              <option>Carolina Vega</option>
+            </select>
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__group">
+            <label class="form__label" for="fecha">Fecha</label>
+            <input class="form__input" type="date" id="fecha" required />
+          </div>
+          <div class="form__group">
+            <label class="form__label" for="hora">Hora preferida</label>
+            <select class="form__input" id="hora" required>
+              <option value="" disabled selected>Selecciona la hora</option>
+              <option>09:00</option>
+              <option>10:00</option>
+              <option>11:00</option>
+              <option>12:00</option>
+              <option>14:00</option>
+              <option>15:00</option>
+              <option>16:00</option>
+              <option>17:00</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Confirmar reserva</button>
+        <div class="form__success" id="formSuccess">¡Reserva recibida! Te contactaremos para confirmar.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section" id="contacto">
+    <div class="container">
+      <p class="section__tag">Encuéntranos</p>
+      <h2 class="section__title">Contacto</h2>
+      <div class="contact">
+        <div class="contact__info">
+          <div class="contact__item">
+            <span class="contact__icon">◎</span>
+            <div>
+              <strong>Dirección</strong>
+              <p>Av. República 123 y Naciones Unidas,<br />Quito, Ecuador</p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <span class="contact__icon">◉</span>
+            <div>
+              <strong>Horario</strong>
+              <p>Lunes – Sábado: 09:00 – 19:00<br />Domingo: 10:00 – 15:00</p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <span class="contact__icon">◈</span>
+            <div>
+              <strong>Teléfono</strong>
+              <p>+593 98 765 4321</p>
+            </div>
+          </div>
+          <div class="contact__item">
+            <span class="contact__icon">✉</span>
+            <div>
+              <strong>Email</strong>
+              <p>hola@bellezayestilo.ec</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact__map">
+          <div class="map__placeholder">
+            <span>Mapa de ubicación</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__logo">Belleza <span>&</span> Estilo</div>
+        <p>Tu destino de belleza y bienestar.<br />Porque mereces lo mejor.</p>
+      </div>
+      <div class="footer__links">
+        <h4>Servicios</h4>
+        <a href="#">Corte & Peinado</a>
+        <a href="#">Color & Mechas</a>
+        <a href="#">Tratamientos</a>
+        <a href="#">Maquillaje</a>
+        <a href="#">Uñas</a>
+      </div>
+      <div class="footer__links">
+        <h4>Información</h4>
+        <a href="#">Sobre nosotros</a>
+        <a href="#">Equipo</a>
+        <a href="#">Blog</a>
+        <a href="#">Políticas</a>
+      </div>
+      <div class="footer__social">
+        <h4>Síguenos</h4>
+        <div class="social">
+          <a href="#" class="social__link">Instagram</a>
+          <a href="#" class="social__link">Facebook</a>
+          <a href="#" class="social__link">TikTok</a>
+        </div>
+        <div class="footer__login-cta">
+          <a href="login.html" class="btn btn--outline btn--sm">Acceder a mi cuenta</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Belleza & Estilo. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <link rel="stylesheet" href="css/chatbot.css" />
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

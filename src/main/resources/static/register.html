@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crear cuenta — Belleza & Estilo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/register.css" />
+</head>
+<body>
+
+  <div class="reg-bg">
+    <!-- Decorative circles -->
+    <div class="reg-bg__circle reg-bg__circle--1" aria-hidden="true"></div>
+    <div class="reg-bg__circle reg-bg__circle--2" aria-hidden="true"></div>
+    <div class="reg-bg__circle reg-bg__circle--3" aria-hidden="true"></div>
+  </div>
+
+  <div class="reg-wrapper">
+
+    <!-- HEADER -->
+    <div class="reg-header">
+      <a href="index.html" class="reg-header__logo">Belleza <span>&</span> Estilo</a>
+      <p class="reg-header__sub">Crea tu cuenta y empieza a disfrutar de todos los beneficios</p>
+    </div>
+
+    <!-- CARD -->
+    <div class="reg-card">
+
+      <!-- Steps indicator -->
+      <div class="reg-steps">
+        <div class="reg-step reg-step--active">
+          <span class="reg-step__num">1</span>
+          <span class="reg-step__label">Datos personales</span>
+        </div>
+        <div class="reg-step__line"></div>
+        <div class="reg-step">
+          <span class="reg-step__num">2</span>
+          <span class="reg-step__label">Acceso</span>
+        </div>
+        <div class="reg-step__line"></div>
+        <div class="reg-step">
+          <span class="reg-step__num">3</span>
+          <span class="reg-step__label">Confirmar</span>
+        </div>
+      </div>
+
+      <form class="rform" id="registerForm" novalidate>
+
+        <!-- Step 1: Personal data -->
+        <div class="rform__step" id="step1">
+          <h2 class="rform__title">Datos personales</h2>
+          <p class="rform__desc">Cuéntanos un poco sobre ti para personalizar tu experiencia.</p>
+
+          <div class="rform__grid">
+            <div class="rform__group">
+              <label class="rform__label" for="firstName">Nombre</label>
+              <input class="rform__input" type="text" id="firstName" name="firstName" placeholder="Tu nombre" required autocomplete="given-name" />
+            </div>
+            <div class="rform__group">
+              <label class="rform__label" for="lastName">Apellido</label>
+              <input class="rform__input" type="text" id="lastName" name="lastName" placeholder="Tu apellido" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="rform__group">
+            <label class="rform__label" for="phone">Teléfono</label>
+            <div class="rform__input-wrap">
+              <span class="rform__prefix">+593</span>
+              <input class="rform__input rform__input--prefixed" type="tel" id="phone" name="phone" placeholder="98 765 4321" autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="rform__group">
+            <label class="rform__label">¿Cómo nos conociste?</label>
+            <div class="rform__radio-group">
+              <label class="rform__radio">
+                <input type="radio" name="source" value="instagram" />
+                <span class="rform__radio-box"></span>
+                Instagram
+              </label>
+              <label class="rform__radio">
+                <input type="radio" name="source" value="recomendacion" />
+                <span class="rform__radio-box"></span>
+                Recomendación
+              </label>
+              <label class="rform__radio">
+                <input type="radio" name="source" value="google" />
+                <span class="rform__radio-box"></span>
+                Google
+              </label>
+              <label class="rform__radio">
+                <input type="radio" name="source" value="otro" />
+                <span class="rform__radio-box"></span>
+                Otro
+              </label>
+            </div>
+          </div>
+
+          <button type="button" class="rform__btn" id="toStep2">Continuar</button>
+        </div>
+
+        <!-- Step 2: Access credentials -->
+        <div class="rform__step rform__step--hidden" id="step2">
+          <h2 class="rform__title">Datos de acceso</h2>
+          <p class="rform__desc">Elige un correo y contraseña seguros para tu cuenta.</p>
+
+          <div class="rform__group">
+            <label class="rform__label" for="regEmail">Correo electrónico</label>
+            <input class="rform__input" type="email" id="regEmail" name="email" placeholder="tu@correo.com" required autocomplete="email" />
+          </div>
+
+          <div class="rform__group">
+            <label class="rform__label" for="regPassword">Contraseña</label>
+            <div class="rform__input-wrap rform__input-wrap--pw">
+              <input class="rform__input" type="password" id="regPassword" name="password" placeholder="Mínimo 8 caracteres" required autocomplete="new-password" />
+              <button type="button" class="rform__eye" id="toggleRegPwd" aria-label="Mostrar contraseña">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <!-- Password strength -->
+            <div class="rform__strength">
+              <div class="rform__strength-bar">
+                <span class="rform__strength-fill" id="strengthFill"></span>
+              </div>
+              <span class="rform__strength-label" id="strengthLabel">Introduce una contraseña</span>
+            </div>
+          </div>
+
+          <div class="rform__group">
+            <label class="rform__label" for="regConfirm">Confirmar contraseña</label>
+            <input class="rform__input" type="password" id="regConfirm" name="confirm" placeholder="Repite tu contraseña" required autocomplete="new-password" />
+          </div>
+
+          <div class="rform__check">
+            <label class="rform__check-label">
+              <input type="checkbox" id="terms" name="terms" required />
+              <span class="rform__check-box"></span>
+              Acepto los <a href="#">Términos de uso</a> y la <a href="#">Política de privacidad</a>
+            </label>
+          </div>
+
+          <div class="rform__check">
+            <label class="rform__check-label">
+              <input type="checkbox" id="promo" name="promo" />
+              <span class="rform__check-box"></span>
+              Quiero recibir promociones y novedades por email
+            </label>
+          </div>
+
+          <div class="rform__btn-row">
+            <button type="button" class="rform__btn rform__btn--back" id="toStep1">← Volver</button>
+            <button type="submit" class="rform__btn" id="submitBtn">
+              <span class="rform__btn-text">Crear cuenta</span>
+              <span class="rform__btn-loader" id="regLoader" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="rform__error" id="regError" role="alert"></div>
+        </div>
+
+        <!-- Step 3: Success -->
+        <div class="rform__step rform__step--hidden" id="step3">
+          <div class="rform__success">
+            <div class="rform__success-icon">✦</div>
+            <h2 class="rform__title">¡Bienvenida!</h2>
+            <p class="rform__desc">Tu cuenta ha sido creada exitosamente. Ya puedes disfrutar de todos los beneficios de Belleza & Estilo.</p>
+            <div class="rform__success-perks">
+              <div class="rform__perk">
+                <span class="rform__perk-icon">✂</span>
+                <span>Reserva citas en línea</span>
+              </div>
+              <div class="rform__perk">
+                <span class="rform__perk-icon">✦</span>
+                <span>Precios exclusivos</span>
+              </div>
+              <div class="rform__perk">
+                <span class="rform__perk-icon">◈</span>
+                <span>Historial de servicios</span>
+              </div>
+            </div>
+            <a href="login.html" class="rform__btn" style="text-align:center; display:block; margin-top:32px;">Iniciar sesión</a>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Google option -->
+      <div id="googleSection">
+        <div class="rform__divider"><span>o regístrate con</span></div>
+        <button type="button" class="rform__social-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#4285F4" d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
+            <path fill="#34A853" d="M12.255 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96h-3.98v3.09C3.515 21.3 7.615 24 12.255 24z"/>
+            <path fill="#FBBC05" d="M5.525 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62h-3.98a11.86 11.86 0 0 0 0 10.76l3.98-3.09z"/>
+            <path fill="#EA4335" d="M12.255 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C18.205 1.19 15.495 0 12.255 0c-4.64 0-8.74 2.7-10.71 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
+          </svg>
+          Continuar con Google
+        </button>
+      </div>
+
+    </div>
+
+    <p class="reg-footer">
+      ¿Ya tienes cuenta? <a href="login.html">Iniciar sesión</a>
+      &nbsp;·&nbsp;
+      <a href="index.html">Volver al inicio</a>
+    </p>
+
+  </div>
+
+  <script src="js/register.js"></script>
+</body>
+</html>
