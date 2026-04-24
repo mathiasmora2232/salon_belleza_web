@@ -1,5 +1,6 @@
 package com.salonbelleza.app.controller;
 
+import com.salonbelleza.app.dto.ReservaPublicaRequest;
 import com.salonbelleza.app.entity.Cita;
 import com.salonbelleza.app.entity.CitaEstado;
 import com.salonbelleza.app.entity.CitaHistorial;
@@ -53,6 +54,11 @@ public class CitaController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fin) {
         return ResponseEntity.ok(citaService.findByFechaBetween(inicio, fin));
+    }
+
+    @PostMapping("/publica")
+    public ResponseEntity<Cita> reservarPublica(@RequestBody ReservaPublicaRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(citaService.reservarPublica(request));
     }
 
     @PostMapping

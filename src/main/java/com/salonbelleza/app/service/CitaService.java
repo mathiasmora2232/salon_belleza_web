@@ -1,13 +1,8 @@
 package com.salonbelleza.app.service;
 
-import com.salonbelleza.app.entity.Cita;
-import com.salonbelleza.app.entity.CitaEstado;
-import com.salonbelleza.app.entity.CitaHistorial;
-import com.salonbelleza.app.entity.CitaServicio;
-import com.salonbelleza.app.repository.CitaEstadoRepository;
-import com.salonbelleza.app.repository.CitaHistorialRepository;
-import com.salonbelleza.app.repository.CitaRepository;
-import com.salonbelleza.app.repository.CitaServicioRepository;
+import com.salonbelleza.app.dto.ReservaPublicaRequest;
+import com.salonbelleza.app.entity.*;
+import com.salonbelleza.app.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +19,9 @@ public class CitaService {
     private final CitaServicioRepository citaServicioRepository;
     private final CitaHistorialRepository citaHistorialRepository;
     private final CitaEstadoRepository citaEstadoRepository;
+    private final ClienteRepository clienteRepository;
+    private final EstilistaRepository estilistaRepository;
+    private final ServicioRepository servicioRepository;
 
     // --- Citas ---
 
@@ -138,6 +136,58 @@ public class CitaService {
     @Transactional(readOnly = true)
     public List<Cita> completadasSinFactura() {
         return citaRepository.findCompletadasSinFactura();
+    }
+
+    public Cita reservarPublica(ReservaPublicaRequest req) {
+        Cliente cliente = clienteRepository.findByTelefono(req.getTelefono())
+                .orElseGet(() -> {
+                    Cliente nuevo = new Cliente();
+                    nuevo.setNombre(req.getNombre());
+                    nuevo.setApellido(req.getApellido() != null ? req.getApellido() : "");
+                    nuevo.setTelefono(req.getTelefono());
+                    nuevo.setEmail(req.getEmail());
+                    nuevo.setEstado("Activo");
+                    return clienteRepository.save(nuevo);
+                });
+
+        Servicio servicio = servicioRepository.findById(req.getServicioId())
+                .orElseThrow(() -> new EntityNotFoundException("Servicio no encontrado"));
+
+        Estilista estilista = req.getEstilistaId() != null
+                ? estilistaRepository.findById(req.getEstilistaId()).orElse(null)
+                : null;
+
+        CitaEstado estadoPendiente = citaEstadoRepository.findByCodigo("PENDIENTE")
+                .orElseGet(() -> {
+                    CitaEstado e = new CitaEstado();
+                    e.setCodigo("PENDIENTE");
+                    e.setNombre("Pendiente");
+                    e.setColorHex("#f59e0b");
+                    e.setEsFinal(false);
+                    e.setOrden((short) 1);
+                    return citaEstadoRepository.save(e);
+                });
+
+        Cita cita = new Cita();
+        cita.setCliente(cliente);
+        cita.setEstilista(estilista);
+        cita.setEstado(estadoPendiente);
+        cita.setFecha(req.getFecha());
+        cita.setHoraInicio(req.getHoraInicio());
+        cita.setHoraFin(req.getHoraInicio().plusMinutes(servicio.getDuracionMin()));
+        cita.setObservaciones(req.getObservaciones());
+        cita = citaRepository.save(cita);
+
+        CitaServicio citaServicio = new CitaServicio();
+        citaServicio.setCita(cita);
+        citaServicio.setServicio(servicio);
+        citaServicio.setEstilista(estilista);
+        citaServicio.setPrecioAplicado(servicio.getPrecio());
+        citaServicio.setDuracionAplicada(servicio.getDuracionMin());
+        citaServicio.setOrden((short) 1);
+        citaServicioRepository.save(citaServicio);
+
+        return cita;
     }
 
     public Cita cambiarEstado(Long citaId, String codigoEstado) {
