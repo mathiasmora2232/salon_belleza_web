@@ -46,6 +46,7 @@ if (loginForm) {
 
       if (res.ok) {
         localStorage.setItem('token', data.token);
+        if (data.refreshToken) localStorage.setItem('refreshToken', data.refreshToken);
         localStorage.setItem('usuario', JSON.stringify({
           userId: data.userId,
           email: data.email,
