@@ -1,0 +1,341 @@
+/* ── Pack summary cards ── */
+.pack-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pack-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem 1rem;
+  position: relative;
+  transition: box-shadow .2s;
+}
+.pack-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); }
+.pack-card--featured { border-color: var(--gold); }
+
+.pack-card__badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: #fff;
+  font-size: .63rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 2px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.pack-card__name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: .15rem;
+}
+
+.pack-card__price-row { display: flex; align-items: baseline; gap: .4rem; margin: .5rem 0 .25rem; }
+.pack-card__price { font-size: 1.5rem; font-weight: 700; color: var(--gold); }
+.pack-card__price-ref {
+  font-size: .8rem;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.pack-card__meta { font-size: .78rem; color: var(--muted); margin-bottom: .85rem; }
+
+.pack-card__features {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  margin-bottom: .9rem;
+}
+.pack-card__feat {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .78rem;
+  color: var(--text);
+}
+.pack-card__feat svg { flex-shrink: 0; color: var(--gold); }
+
+.pack-card__footer {
+  display: flex;
+  gap: .5rem;
+  border-top: 1px solid var(--border);
+  padding-top: .75rem;
+}
+.pack-card__btn {
+  flex: 1;
+  padding: .38rem .6rem;
+  border-radius: 6px;
+  font-family: 'Jost', sans-serif;
+  font-size: .77rem;
+  font-weight: 400;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  transition: background .15s, border-color .15s, color .15s;
+}
+.pack-card__btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+.pack-card__btn--primary { background: var(--gold); border-color: var(--gold); color: #fff; }
+.pack-card__btn--primary:hover { opacity: .85; }
+
+/* ── Toggle switch ── */
+.toggle-wrap { display: flex; align-items: center; gap: .55rem; }
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle__slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.toggle__slider::before {
+  content: '';
+  position: absolute;
+  height: 14px; width: 14px;
+  left: 3px; bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform .2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.toggle input:checked + .toggle__slider { background: var(--gold); }
+.toggle input:checked + .toggle__slider::before { transform: translateX(16px); }
+.toggle__label { font-size: .82rem; color: var(--muted); }
+
+/* ── Modal base (since paquetes only loads admin.css + paquetes.css) ── */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal-backdrop.open { display: flex; }
+
+.modal {
+  background: var(--white);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 580px;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,.2);
+}
+.modal--lg { max-width: 660px; }
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  z-index: 1;
+}
+.modal__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+.modal__close {
+  background: none; border: none;
+  cursor: pointer; color: var(--muted);
+  padding: 4px; border-radius: 4px;
+  display: flex;
+  transition: color .2s;
+}
+.modal__close:hover { color: var(--dark); }
+.modal__body { padding: 20px 24px 24px; }
+.modal__footer {
+  display: flex; gap: 10px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  margin-top: 16px;
+}
+.btn-cancel {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 18px;
+  font-family: 'Jost', sans-serif;
+  font-size: .85rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: border-color .2s;
+}
+.btn-cancel:hover { border-color: var(--muted); color: var(--text); }
+.btn-save {
+  background: var(--gold); color: var(--dark);
+  border: none; border-radius: var(--radius);
+  padding: 9px 22px;
+  font-family: 'Jost', sans-serif;
+  font-size: .85rem; font-weight: 500;
+  cursor: pointer; transition: opacity .2s;
+}
+.btn-save:hover { opacity: .85; }
+
+/* ── Form elements (needed since paquetes doesn't load citas.css) ── */
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-label { font-size: .8rem; font-weight: 500; color: var(--muted); }
+.form-input {
+  font-family: 'Jost', sans-serif;
+  font-size: .875rem; font-weight: 300;
+  color: var(--text);
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 12px;
+  outline: none;
+  transition: border-color .2s;
+}
+.form-input:focus { border-color: var(--gold); background: var(--white); }
+textarea.form-input { resize: vertical; min-height: 68px; }
+
+/* ── Pack modal grid ── */
+.pack-modal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.pack-modal__grid .span-2 { grid-column: 1 / -1; }
+
+/* ── Service list in modal ── */
+.svc-list-label {
+  font-size: .8rem;
+  font-weight: 500;
+  color: var(--muted);
+  margin-bottom: 6px;
+  grid-column: 1 / -1;
+}
+.svc-list-wrap {
+  grid-column: 1 / -1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  max-height: 195px;
+  overflow-y: auto;
+  padding: .4rem;
+  background: var(--white);
+}
+.svc-list-wrap::-webkit-scrollbar { width: 4px; }
+.svc-list-wrap::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+.svc-list-wrap { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+.svc-row {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .35rem .5rem;
+  border-radius: 6px;
+  transition: background .1s;
+}
+.svc-row:hover { background: var(--light); }
+.svc-row__check {
+  width: 15px; height: 15px;
+  accent-color: var(--gold);
+  cursor: pointer; flex-shrink: 0;
+}
+.svc-row__name { flex: 1; font-size: .82rem; color: var(--text); cursor: pointer; }
+.svc-row__price { display: none; align-items: center; gap: .3rem; }
+.svc-row__price.visible { display: flex; }
+.svc-row__price-label { font-size: .73rem; color: var(--muted); white-space: nowrap; }
+.svc-row__price-input {
+  width: 72px;
+  padding: .22rem .4rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: .78rem;
+  background: var(--white);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+}
+.svc-row__price-input:focus { outline: none; border-color: var(--gold); }
+
+/* ── Table action buttons ── */
+.tbl-actions { display: flex; gap: .35rem; }
+.tbl-btn {
+  padding: .3rem .5rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.tbl-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+.tbl-btn--danger:hover { background: var(--rose); border-color: var(--rose); color: #fff; }
+
+/* ── Extra badge variant ── */
+.badge--muted { background: var(--light); color: var(--muted); }
+.text-gold { color: var(--gold); font-weight: 500; }
+
+/* ── Table styles (replicated from citas.css since paquetes doesn't load it) ── */
+.citas-full-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .85rem;
+}
+.citas-full-table th {
+  padding: 11px 16px;
+  text-align: left;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--light);
+  border-bottom: 1px solid var(--border);
+}
+.citas-full-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: middle;
+}
+.citas-full-table tbody tr:hover { background: var(--light); }
+.citas-full-table tbody tr:last-child td { border-bottom: none; }
+.table-empty {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .pack-cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .pack-modal__grid { grid-template-columns: 1fr; }
+  .pack-modal__grid .span-2 { grid-column: 1; }
+  .svc-list-wrap { grid-column: 1; }
+}
