@@ -3,12 +3,11 @@
  */
 (function () {
   const API = '/api/v1/seguridad';
-  let roles    = [];
-  let permisos = [];
-  let assigned = new Set();
-  let activeRolId   = null;
-  let activeRolName = '';
-  let saving = false;
+  let roles     = [];
+  let permisos  = [];
+  let recursos  = [];
+  let assigned  = new Set();
+  let activeRolId = null;
 
   function authHeaders() {
     const token = localStorage.getItem('token');
@@ -20,17 +19,77 @@
   function showSaving() { savingEl?.classList.add('visible'); }
   function hideSaving() { savingEl?.classList.remove('visible'); }
 
+  // ── Tab switch ────────────────────────────────────────────
+  window.showTab = function (tab) {
+    const isRecursos = tab === 'recursos';
+    document.getElementById('tabPanelRecursos').classList.toggle('seg-tab-panel--hidden', !isRecursos);
+    document.getElementById('tabPanelPermisos').classList.toggle('seg-tab-panel--hidden',  isRecursos);
+    document.getElementById('tabRecursos').classList.toggle('seg-tab--active',  isRecursos);
+    document.getElementById('tabPermisos').classList.toggle('seg-tab--active', !isRecursos);
+  };
+
   // ── Init ──────────────────────────────────────────────────
   async function init() {
     try {
-      [roles, permisos] = await Promise.all([
+      [roles, permisos, recursos] = await Promise.all([
         fetch(`${API}/roles`,    { headers: authHeaders() }).then(r => r.json()),
         fetch(`${API}/permisos`, { headers: authHeaders() }).then(r => r.json()),
+        fetch(`${API}/recursos`, { headers: authHeaders() }).then(r => r.json()),
       ]);
       renderRoles();
+      renderRecursos();
     } catch {
       Toast.error('Error al cargar datos de seguridad');
     }
+  }
+
+  // ── Render recursos tab ───────────────────────────────────
+  function renderRecursos() {
+    const grid = document.getElementById('segRecursosGrid');
+    if (!grid) return;
+
+    const pantallas   = recursos.filter(r => r.tipoRecurso?.nombre === 'pantalla');
+    const capacidades = recursos.filter(r => r.tipoRecurso?.nombre === 'capacidad');
+
+    grid.innerHTML = '';
+    grid.appendChild(buildRecursosCard(
+      'Pantallas frontend',
+      `<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/>
+      </svg>`,
+      pantallas
+    ));
+    grid.appendChild(buildRecursosCard(
+      'Capacidades backend',
+      `<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/>
+        <line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+      </svg>`,
+      capacidades
+    ));
+  }
+
+  function buildRecursosCard(title, iconSvg, list) {
+    const card = document.createElement('div');
+    card.className = 'seg-recursos-card';
+
+    const permisosPorRecurso = (rid) =>
+      permisos.filter(p => p.recurso.id === rid).map(p => capitalize(p.accion.nombre)).join(' · ');
+
+    card.innerHTML = `
+      <div class="seg-recursos-card-header">
+        <span class="seg-recursos-card-icon">${iconSvg}</span>
+        <span class="seg-recursos-card-title">${title}</span>
+        <span class="seg-recursos-card-count">${list.length}</span>
+      </div>
+      ${list.map(r => `
+        <div class="seg-recurso-row">
+          <span class="seg-recurso-estado seg-recurso-estado--${r.estado}"></span>
+          <span class="seg-recurso-name">${capitalize(r.nombre)}</span>
+          <span class="seg-recurso-ruta">${r.ruta ?? '—'}</span>
+        </div>`).join('')}`;
+
+    return card;
   }
 
   // ── Render roles list ─────────────────────────────────────
@@ -38,13 +97,13 @@
     const list = document.getElementById('segRoleList');
     if (!list) return;
     list.innerHTML = roles.map(r => `
-      <button class="seg-role-item" id="roleBtn-${r.id}" onclick="selectRol(${r.id}, '${r.nombre.replace(/'/g,"\\'")}')">
+      <button type="button" class="seg-role-item" id="roleBtn-${r.id}"
+              onclick="selectRol(${r.id}, '${r.nombre.replace(/'/g, "\\'")}')">
         <span class="seg-role-dot"></span>
         <span>${r.nombre}</span>
         <span class="seg-role-count" id="roleCount-${r.id}">—</span>
       </button>`).join('');
 
-    // load counts for all roles in background
     roles.forEach(r => loadRolCount(r.id));
   }
 
@@ -58,14 +117,15 @@
 
   // ── Select a role ─────────────────────────────────────────
   window.selectRol = async function (rolId, rolName) {
-    activeRolId   = rolId;
-    activeRolName = rolName;
+    activeRolId = rolId;
 
     document.querySelectorAll('.seg-role-item').forEach(btn => btn.classList.remove('seg-role-item--active'));
     document.getElementById(`roleBtn-${rolId}`)?.classList.add('seg-role-item--active');
 
-    document.getElementById('segEmptyState').style.display  = 'none';
-    document.getElementById('segMatrixHeader').style.display = '';
+    const emptyEl  = document.getElementById('segEmptyState');
+    const headerEl = document.getElementById('segMatrixHeader');
+    emptyEl.classList.add('seg-tab-panel--hidden');
+    headerEl.classList.remove('seg-tab-panel--hidden');
     document.getElementById('segMatrix').innerHTML = '';
 
     document.getElementById('segMatrixTitle').textContent = rolName;
@@ -87,31 +147,27 @@
     const container = document.getElementById('segMatrix');
     container.innerHTML = '';
 
-    // group permisos by tipo_recurso
-    const pantallas  = permisos.filter(p => p.tipoRecurso?.nombre === 'pantalla');
+    const pantallas   = permisos.filter(p => p.tipoRecurso?.nombre === 'pantalla');
     const capacidades = permisos.filter(p => p.tipoRecurso?.nombre === 'capacidad');
 
     container.appendChild(buildSection(
-      'Pantallas',
+      'Pantallas frontend',
       `<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <rect x="2" y="3" width="20" height="14" rx="2"/>
-        <path d="M8 21h8m-4-4v4"/>
+        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/>
       </svg>`,
       pantallas
     ));
-
     container.appendChild(buildSection(
       'Capacidades backend',
       `<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-          d="M5 12h14M12 5l7 7-7 7"/>
+        <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/>
+        <line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
       </svg>`,
       capacidades
     ));
   }
 
   function buildSection(title, iconSvg, sectionPermisos) {
-    // group by recurso
     const byRecurso = {};
     sectionPermisos.forEach(p => {
       const rid = p.recurso.id;
@@ -122,13 +178,12 @@
     const section = document.createElement('div');
     section.className = 'seg-section';
 
-    const assignedInSection = sectionPermisos.filter(p => assigned.has(p.id)).length;
-
+    const assignedCount = sectionPermisos.filter(p => assigned.has(p.id)).length;
     section.innerHTML = `
       <div class="seg-section-header">
         <span class="seg-section-icon">${iconSvg}</span>
         <span class="seg-section-title">${title}</span>
-        <span class="seg-section-badge">${assignedInSection} / ${sectionPermisos.length}</span>
+        <span class="seg-section-badge">${assignedCount} / ${sectionPermisos.length}</span>
       </div>`;
 
     Object.values(byRecurso).forEach(({ recurso, acciones }) => {
@@ -138,7 +193,7 @@
       const accionesHtml = acciones
         .sort((a, b) => a.accion.nombre.localeCompare(b.accion.nombre))
         .map(p => {
-          const checked = assigned.has(p.id) ? 'checked' : '';
+          const checked     = assigned.has(p.id) ? 'checked' : '';
           const activeClass = assigned.has(p.id) ? 'seg-check--active' : '';
           return `
             <label class="seg-check ${activeClass}" id="lbl-${p.id}">
@@ -185,11 +240,9 @@
         assigned.delete(permisoId);
       }
 
-      // update label style
       const lbl = document.getElementById(`lbl-${permisoId}`);
       if (lbl) lbl.classList.toggle('seg-check--active', checked);
 
-      // update subtitle and role count
       document.getElementById('segMatrixSub').textContent =
         `${assigned.size} de ${permisos.length} permisos asignados`;
       const countEl = document.getElementById(`roleCount-${activeRolId}`);
@@ -197,7 +250,7 @@
 
       Toast.success(checked ? 'Permiso asignado' : 'Permiso removido', 1800);
     } catch {
-      checkboxEl.checked = !checked; // revert
+      checkboxEl.checked = !checked;
       Toast.error('No se pudo actualizar el permiso');
     } finally {
       checkboxEl.disabled = false;
@@ -209,6 +262,5 @@
     return str ? str.charAt(0).toUpperCase() + str.slice(1) : str;
   }
 
-  // ── Start ─────────────────────────────────────────────────
   init();
 })();

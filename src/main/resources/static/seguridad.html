@@ -113,48 +113,76 @@
       <div class="content__header">
         <div>
           <h1 class="content__title">Seguridad</h1>
-          <p class="content__sub">Asigna permisos a cada rol del sistema</p>
+          <p class="content__sub">Recursos del sistema y permisos por rol</p>
         </div>
       </div>
 
-      <div class="seg-layout">
+      <!-- TABS -->
+      <div class="seg-tabs">
+        <button type="button" class="seg-tab seg-tab--active" id="tabRecursos" onclick="showTab('recursos')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8m-4-4v4"/>
+          </svg>
+          Recursos del sistema
+        </button>
+        <button type="button" class="seg-tab" id="tabPermisos" onclick="showTab('permisos')">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
+          </svg>
+          Permisos por rol
+        </button>
+      </div>
 
-        <!-- LEFT: role list -->
-        <div class="seg-roles-panel">
-          <div class="seg-roles-header">
-            <span class="seg-roles-title">Roles</span>
-          </div>
-          <div class="seg-role-list" id="segRoleList">
-            <div style="padding:16px;color:var(--muted);font-size:.82rem">Cargando…</div>
+      <!-- TAB: RECURSOS -->
+      <div id="tabPanelRecursos">
+        <div class="seg-recursos-grid" id="segRecursosGrid">
+          <div class="seg-empty">
+            <svg width="36" height="36" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8m-4-4v4"/>
+            </svg>
+            Cargando recursos…
           </div>
         </div>
+      </div>
 
-        <!-- RIGHT: permission matrix -->
-        <div class="seg-matrix-panel">
+      <!-- TAB: PERMISOS -->
+      <div id="tabPanelPermisos" class="seg-tab-panel--hidden">
+        <div class="seg-layout">
 
-          <!-- placeholder when no role selected -->
-          <div class="seg-empty" id="segEmptyState">
-            <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
-                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
-                points="9 12 11 14 15 10"/>
-            </svg>
-            Selecciona un rol para ver y editar sus permisos
-          </div>
-
-          <!-- active role header -->
-          <div class="panel" id="segMatrixHeader" style="display:none">
-            <div class="panel__header">
-              <div>
-                <h2 class="panel__title" id="segMatrixTitle">—</h2>
-                <p class="panel__period" id="segMatrixSub"></p>
-              </div>
+          <!-- LEFT: role list -->
+          <div class="seg-roles-panel">
+            <div class="seg-roles-header">
+              <span class="seg-roles-title">Roles</span>
+            </div>
+            <div class="seg-role-list" id="segRoleList">
+              <div style="padding:16px;color:var(--muted);font-size:.82rem">Cargando…</div>
             </div>
           </div>
 
-          <!-- permission rows (injected by JS) -->
-          <div id="segMatrix"></div>
+          <!-- RIGHT: permission matrix -->
+          <div class="seg-matrix-panel">
+            <div class="seg-empty" id="segEmptyState">
+              <svg width="40" height="40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                  d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2"
+                  points="9 12 11 14 15 10"/>
+              </svg>
+              Selecciona un rol para ver y editar sus permisos
+            </div>
+            <div class="panel seg-tab-panel--hidden" id="segMatrixHeader">
+              <div class="panel__header">
+                <div>
+                  <h2 class="panel__title" id="segMatrixTitle">—</h2>
+                  <p class="panel__period" id="segMatrixSub"></p>
+                </div>
+              </div>
+            </div>
+            <div id="segMatrix"></div>
+          </div>
 
         </div>
       </div>
