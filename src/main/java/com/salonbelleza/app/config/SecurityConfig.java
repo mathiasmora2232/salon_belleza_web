@@ -4,6 +4,7 @@ import com.salonbelleza.app.security.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -26,13 +27,16 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Páginas estáticas públicas
-                .requestMatchers("/", "/index.html", "/login.html", "/register.html",
-                                 "/evento.html", "/css/**", "/js/**", "/img/**").permitAll()
+                // Páginas estáticas — protegidas por auth-guard.js en el cliente
+                .requestMatchers("/*.html", "/", "/css/**", "/js/**", "/img/**").permitAll()
                 // Endpoints públicos
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/chat").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
+                // Formulario público de reserva
+                .requestMatchers(HttpMethod.POST, "/api/v1/citas/publica").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/servicios/estado/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/estilistas/estado/**").permitAll()
                 // Todo lo demás requiere token
                 .anyRequest().authenticated()
             )

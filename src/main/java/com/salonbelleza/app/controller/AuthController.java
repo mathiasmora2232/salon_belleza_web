@@ -74,10 +74,12 @@ public class AuthController {
         usuarioRepository.save(usuario);
 
         String rolNombre = usuario.getRol() != null ? usuario.getRol().getNombre() : "USER";
-        String token = jwtUtil.generate(usuario.getId(), usuario.getEmail(), rolNombre);
+        String token        = jwtUtil.generate(usuario.getId(), usuario.getEmail(), rolNombre);
+        String refreshToken = jwtUtil.generateRefresh(usuario.getId(), usuario.getEmail(), rolNombre);
 
         return ResponseEntity.ok(LoginResponse.builder()
                 .token(token)
+                .refreshToken(refreshToken)
                 .userId(usuario.getId())
                 .email(usuario.getEmail())
                 .nombreCompleto(usuario.getNombreCompleto())
@@ -114,16 +116,44 @@ public class AuthController {
 
         usuarioRepository.save(usuario);
 
-        String token = jwtUtil.generate(usuario.getId(), usuario.getEmail(), rolCliente.getNombre());
+        String token        = jwtUtil.generate(usuario.getId(), usuario.getEmail(), rolCliente.getNombre());
+        String refreshToken = jwtUtil.generateRefresh(usuario.getId(), usuario.getEmail(), rolCliente.getNombre());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(LoginResponse.builder()
                 .token(token)
+                .refreshToken(refreshToken)
                 .userId(usuario.getId())
                 .email(usuario.getEmail())
                 .nombreCompleto(usuario.getNombreCompleto())
                 .rol(rolCliente.getNombre())
                 .debeCambiarPass(false)
                 .build());
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@RequestBody Map<String, String> body) {
+        String refreshToken = body.get("refreshToken");
+        if (refreshToken == null || refreshToken.isBlank()) {
+            return ResponseEntity.status(400).body(Map.of("error", "refreshToken requerido."));
+        }
+        if (!jwtUtil.isValid(refreshToken) || !jwtUtil.isRefreshToken(refreshToken)) {
+            return ResponseEntity.status(401).body(Map.of("error", "Refresh token inválido o expirado."));
+        }
+
+        String email = jwtUtil.getEmail(refreshToken);
+        Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
+        if (usuario == null || !"Activo".equals(usuario.getEstado())) {
+            return ResponseEntity.status(401).body(Map.of("error", "Usuario no encontrado o inactivo."));
+        }
+
+        String rolNombre    = usuario.getRol() != null ? usuario.getRol().getNombre() : "USER";
+        String newToken     = jwtUtil.generate(usuario.getId(), email, rolNombre);
+        String newRefresh   = jwtUtil.generateRefresh(usuario.getId(), email, rolNombre);
+
+        return ResponseEntity.ok(Map.of(
+                "token",        newToken,
+                "refreshToken", newRefresh
+        ));
     }
 
     @GetMapping("/me")
