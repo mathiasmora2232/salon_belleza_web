@@ -3,7 +3,7 @@
 **Database:** `salon_belleza`  
 **Engine:** PostgreSQL  
 **Host:** localhost:5432  
-**Generated:** 2026-04-19
+**Generated:** 2026-04-24
 
 ---
 
@@ -36,6 +36,8 @@ Stores the role definitions for access control.
 | created_at   | TIMESTAMPTZ              | DEFAULT NOW()                        |
 
 **Indexes:** Primary key on `id`, unique index on `nombre`.
+
+**Roles semilla requeridos:** Administrador, Recepcionista, Estilista, Cajero, **Cliente** (requerido por el endpoint de registro web).
 
 **Relationships:**
 - One `rol` → Many `usuarios`
@@ -432,6 +434,18 @@ Lookup table for appointment statuses.
 | color_hex  | VARCHAR(7)   | e.g. '#FF0000'        |
 | es_final   | BOOLEAN      | DEFAULT FALSE         |
 | orden      | SMALLINT     | DEFAULT 0             |
+
+**Estados semilla requeridos:**
+
+| codigo    | nombre     | Es final | Uso |
+|-----------|------------|----------|-----|
+| PENDIENTE | Pendiente  | No       | Asignado automáticamente por el formulario público de reserva |
+| AGE       | Agendada   | No       | Cita confirmada por recepción |
+| CON       | Confirmada | No       | |
+| CUR       | En curso   | No       | |
+| FIN       | Finalizada | Sí       | |
+| CAN       | Cancelada  | Sí       | |
+| NAS       | No asistió | Sí       | |
 
 **Relationships:**
 - One `cita_estado` → Many `citas`
