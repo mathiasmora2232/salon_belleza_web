@@ -95,14 +95,23 @@ function renderPackages(packages) {
   container.querySelectorAll('.ev-pack').forEach(card => {
     card.addEventListener('click', () => selectPackage(card.dataset.packId));
   });
+
+  if (!selectedPack && packages[0]?.id) {
+    selectPackage(packages[0].id);
+  }
 }
 
 function selectPackage(packId) {
   selectedPackId = packId;
   selectedPack = packageCatalog.find(p => String(p.id) === String(packId)) || null;
+  if (!selectedPack) {
+    showEventStatus('Ese paquete no está disponible en la base. Espera a que carguen los paquetes reales.', 'error');
+    return;
+  }
   document.querySelectorAll('.ev-pack').forEach(c => c.classList.toggle('ev-pack--selected', c.dataset.packId === String(packId)));
   resetMembers();
   updateMembersCap();
+  showEventStatus(`Paquete seleccionado: ${selectedPack.nombre}`, '');
 }
 
 function handleNext() {
