@@ -179,7 +179,7 @@ function appendBot(text, withChips = false) {
   if (withChips) {
     const chips = document.createElement('div');
     chips.className = 'chat-chips';
-    ['Reservar cita', 'Ver servicios', 'Precios', 'Horarios', 'Día de novia ✦'].forEach(label => {
+  ['Reservar cita', 'Ver servicios', 'Precios', 'Horarios', 'Día de novia'].forEach(label => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'chat-chip';
@@ -271,9 +271,10 @@ async function callOpenAI() {
       body: JSON.stringify({ messages: history }),
     });
     const data = await res.json();
-    return data.reply || 'Disculpa, no pude procesar tu mensaje. Escríbenos al WhatsApp +593 98 765 4321.';
+    if (data.reply && !data.reply.includes('problema técnico')) return data.reply;
+    return keywordMatch(history[history.length - 1]?.content || '');
   } catch {
-    return 'Disculpa, no pude conectarme en este momento. Puedes escribirnos al WhatsApp +593 98 765 4321.';
+    return keywordMatch(history[history.length - 1]?.content || '');
   }
 }
 
