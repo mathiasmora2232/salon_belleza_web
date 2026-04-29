@@ -1,5 +1,6 @@
 package com.salonbelleza.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.OffsetDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "clientes",
     indexes = {
         @Index(name = "idx_clientes_nombre_apellido", columnList = "nombre, apellido"),

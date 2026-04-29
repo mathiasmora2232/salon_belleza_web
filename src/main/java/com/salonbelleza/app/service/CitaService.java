@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Service
@@ -141,12 +142,18 @@ public class CitaService {
     public Cita reservarPublica(ReservaPublicaRequest req) {
         Cliente cliente = clienteRepository.findByTelefono(req.getTelefono())
                 .orElseGet(() -> {
+                    OffsetDateTime now = OffsetDateTime.now();
                     Cliente nuevo = new Cliente();
+                    nuevo.setTipoIdentificacion("CEDULA");
+                    nuevo.setNumeroIdentificacion("PUB" + System.currentTimeMillis());
                     nuevo.setNombre(req.getNombre());
                     nuevo.setApellido(req.getApellido() != null ? req.getApellido() : "");
                     nuevo.setTelefono(req.getTelefono());
                     nuevo.setEmail(req.getEmail());
                     nuevo.setEstado("Activo");
+                    nuevo.setFechaRegistro(now);
+                    nuevo.setCreatedAt(now);
+                    nuevo.setUpdatedAt(now);
                     return clienteRepository.save(nuevo);
                 });
 
@@ -176,6 +183,8 @@ public class CitaService {
         cita.setHoraInicio(req.getHoraInicio());
         cita.setHoraFin(req.getHoraInicio().plusMinutes(servicio.getDuracionMin()));
         cita.setObservaciones(req.getObservaciones());
+        cita.setCreatedAt(OffsetDateTime.now());
+        cita.setUpdatedAt(OffsetDateTime.now());
         cita = citaRepository.save(cita);
 
         CitaServicio citaServicio = new CitaServicio();

@@ -1,5 +1,7 @@
 package com.salonbelleza.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.OffsetDateTime;
@@ -9,6 +11,7 @@ import java.time.OffsetDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "usuarios",
     indexes = {
         @Index(name = "idx_usuarios_email", columnList = "email"),
@@ -31,6 +34,7 @@ public class Usuario {
     private String email;
 
     @Column(name = "password_hash", length = 255, nullable = false)
+    @JsonIgnore
     private String passwordHash;
 
     @Column(name = "nombre_completo", length = 100, nullable = false)
