@@ -126,13 +126,16 @@ function renderTable() {
 // ── Acciones de estado ───────────────────────────────────────────────────────
 
 const TRANSITIONS = {
-  PENDIENTE:   [{ label: 'Confirmar',  next: 'CONFIRMADA',  cls: 'btn-xs btn-xs--green' },
-                { label: 'Cancelar',   next: 'CANCELADA',   cls: 'btn-xs btn-xs--rose'  }],
-  CONFIRMADA:  [{ label: 'Iniciar',    next: 'EN_PROGRESO', cls: 'btn-xs btn-xs--blue'  },
-                { label: 'Cancelar',   next: 'CANCELADA',   cls: 'btn-xs btn-xs--rose'  }],
-  EN_PROGRESO: [{ label: 'Completar', next: 'COMPLETADA',  cls: 'btn-xs btn-xs--gold'  }],
-  COMPLETADA:  [],
-  CANCELADA:   []
+  PENDIENTE: [{ label: 'Agendar', next: 'AGE', cls: 'btn-xs btn-xs--blue' },
+              { label: 'Cancelar', next: 'CAN', cls: 'btn-xs btn-xs--rose' }],
+  AGE:       [{ label: 'Confirmar', next: 'CON', cls: 'btn-xs btn-xs--green' },
+              { label: 'Cancelar', next: 'CAN', cls: 'btn-xs btn-xs--rose' }],
+  CON:       [{ label: 'Iniciar', next: 'CUR', cls: 'btn-xs btn-xs--blue' },
+              { label: 'Cancelar', next: 'CAN', cls: 'btn-xs btn-xs--rose' }],
+  CUR:       [{ label: 'Finalizar', next: 'FIN', cls: 'btn-xs btn-xs--gold' }],
+  FIN:       [],
+  CAN:       [],
+  NAS:       []
 };
 
 function buildActions(codigo, id) {
@@ -220,9 +223,9 @@ function escHtml(str) {
 }
 
 function badgeClass(codigo) {
-  return { PENDIENTE: 'badge--pending', CONFIRMADA: 'badge--blue',
-           EN_PROGRESO: 'badge--progress', COMPLETADA: 'badge--done',
-           CANCELADA: 'badge--cancel' }[codigo] || 'badge--pending';
+  return { PENDIENTE: 'badge--pending', AGE: 'badge--blue',
+           CON: 'badge--done', CUR: 'badge--progress', FIN: 'badge--done',
+           CAN: 'badge--cancel', NAS: 'badge--cancel' }[codigo] || 'badge--pending';
 }
 
 function avatarColor(name) {

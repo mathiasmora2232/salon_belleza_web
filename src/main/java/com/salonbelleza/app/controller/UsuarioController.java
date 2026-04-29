@@ -1,5 +1,6 @@
 package com.salonbelleza.app.controller;
 
+import com.salonbelleza.app.dto.UsuarioRequest;
 import com.salonbelleza.app.entity.Usuario;
 import com.salonbelleza.app.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -36,12 +37,12 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuario));
+    public ResponseEntity<Usuario> create(@RequestBody UsuarioRequest usuario) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.create(usuario));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody UsuarioRequest usuario) {
         return ResponseEntity.ok(usuarioService.update(id, usuario));
     }
 
