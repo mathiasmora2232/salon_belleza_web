@@ -485,6 +485,11 @@ button { font-family: 'Jost', sans-serif; }
   vertical-align: middle;
 }
 
+.citas-table .dashboard-empty {
+  padding: 28px 20px;
+  text-align: center;
+}
+
 .citas-table__time {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1rem !important;
@@ -553,6 +558,7 @@ button { font-family: 'Jost', sans-serif; }
   font-size: 0.78rem;
   color: var(--text);
   letter-spacing: 0.02em;
+  text-decoration: none;
 }
 .quick-action:hover { background: var(--white); border-color: var(--gold); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
 
@@ -612,6 +618,16 @@ button { font-family: 'Jost', sans-serif; }
   font-weight: 500;
   min-width: 32px;
   text-align: right;
+}
+
+.dashboard-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.dashboard-empty--error {
+  color: var(--rose);
 }
 
 /* ===== Sidebar scroll (más items) ===== */

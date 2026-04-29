@@ -90,6 +90,201 @@ window.addEventListener('load', () => {
   });
 });
 
+// ── Dashboard conectado a endpoints existentes ───────────────────────────────
+
+const DASHBOARD_API = '/api/v1';
+
+function dashHeaders() {
+  const token = typeof getToken === 'function' ? getToken() : null;
+  return token ? { 'Authorization': `Bearer ${token}` } : {};
+}
+
+function setDashValue(key, value) {
+  const el = document.querySelector(`[data-dashboard="${key}"]`);
+  if (el) el.textContent = value;
+}
+
+function setDashMeta(key, value, tone = '') {
+  const el = document.querySelector(`[data-dashboard-meta="${key}"]`);
+  if (!el) return;
+  el.textContent = value;
+  el.classList.remove('stat-card__trend--up', 'stat-card__trend--down');
+  if (tone) el.classList.add(tone);
+}
+
+function formatNumber(value) {
+  return new Intl.NumberFormat('es-EC').format(Number(value || 0));
+}
+
+function formatMoney(value) {
+  return new Intl.NumberFormat('es-EC', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(Number(value || 0));
+}
+
+function formatTime(value) {
+  return value ? String(value).substring(0, 5) : '—';
+}
+
+function personName(person, fallback) {
+  if (!person) return fallback;
+  return `${person.nombre || ''} ${person.apellido || ''}`.trim() || person.nombreCompleto || fallback;
+}
+
+function badgeClass(codigo) {
+  if (codigo === 'FIN') return 'badge--done';
+  if (codigo === 'CUR' || codigo === 'CON' || codigo === 'AGE') return 'badge--progress';
+  if (codigo === 'CAN' || codigo === 'NAS') return 'badge--cancel';
+  return 'badge--pending';
+}
+
+function initialFor(name) {
+  return (name || 'C').trim().charAt(0).toUpperCase() || 'C';
+}
+
+async function fetchJson(url) {
+  const res = await fetch(url, { headers: dashHeaders() });
+  if (!res.ok) throw new Error(`${res.status} ${url}`);
+  return res.json();
+}
+
+async function loadDashboardStats() {
+  try {
+    const stats = await fetchJson(`${DASHBOARD_API}/dashboard`);
+    setDashValue('citasHoy', formatNumber(stats.citasHoy));
+    setDashValue('clientesActivos', formatNumber(stats.clientesActivos));
+    setDashValue('ingresosMesActual', formatMoney(stats.ingresosMesActual));
+    setDashValue('serviciosActivos', formatNumber(stats.serviciosActivos));
+
+    setDashMeta('citasHoy', `${formatNumber(stats.citasPendientesFactura)} pendientes de factura`, 'stat-card__trend--up');
+    setDashMeta('clientesActivos', `${formatNumber(stats.estilistaActivos)} estilistas activos`, 'stat-card__trend--up');
+    setDashMeta('ingresosMesActual', `${formatNumber(stats.facturasPendientes)} facturas pendientes`, stats.facturasPendientes > 0 ? 'stat-card__trend--down' : 'stat-card__trend--up');
+    setDashMeta('serviciosActivos', 'Catálogo disponible', 'stat-card__trend--up');
+  } catch (err) {
+    console.error('loadDashboardStats:', err);
+    setDashMeta('citasHoy', 'No se pudo cargar el resumen', 'stat-card__trend--down');
+  }
+}
+
+async function loadCitaServicios(citaId) {
+  try {
+    const servicios = await fetchJson(`${DASHBOARD_API}/citas/${citaId}/servicios`);
+    return Array.isArray(servicios) ? servicios : [];
+  } catch (err) {
+    console.error('loadCitaServicios:', err);
+    return [];
+  }
+}
+
+async function renderTodayAppointments() {
+  const tbody = document.getElementById('dashboardCitasBody');
+  if (!tbody) return;
+
+  try {
+    const citas = await fetchJson(`${DASHBOARD_API}/citas/hoy`);
+    const ordered = (Array.isArray(citas) ? citas : [])
+      .sort((a, b) => String(a.horaInicio || '').localeCompare(String(b.horaInicio || '')))
+      .slice(0, 6);
+
+    if (ordered.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" class="dashboard-empty">No hay citas para hoy.</td></tr>';
+      return;
+    }
+
+    const rows = await Promise.all(ordered.map(async cita => {
+      const servicios = await loadCitaServicios(cita.id);
+      const serviceName = servicios[0]?.servicio?.nombre || 'Sin servicio asignado';
+      const extra = servicios.length > 1 ? ` +${servicios.length - 1}` : '';
+      const cliente = personName(cita.cliente, 'Cliente');
+      const estilista = personName(cita.estilista, 'Sin asignar');
+      const codigo = cita.estado?.codigo || '';
+      const estado = cita.estado?.nombre || 'Pendiente';
+
+      return `
+        <tr>
+          <td class="citas-table__time">${formatTime(cita.horaInicio)}</td>
+          <td>
+            <div class="citas-table__client">
+              <div class="citas-table__avatar">${initialFor(cliente)}</div>
+              ${escN(cliente)}
+            </div>
+          </td>
+          <td>${escN(serviceName)}${extra}</td>
+          <td>${escN(estilista)}</td>
+          <td><span class="badge ${badgeClass(codigo)}">${escN(estado)}</span></td>
+        </tr>`;
+    }));
+
+    tbody.innerHTML = rows.join('');
+  } catch (err) {
+    console.error('renderTodayAppointments:', err);
+    tbody.innerHTML = '<tr><td colspan="5" class="dashboard-empty dashboard-empty--error">No se pudieron cargar las citas.</td></tr>';
+  }
+}
+
+function monthRange() {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), now.getMonth(), 1);
+  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+  const toIso = date => date.toISOString().slice(0, 10);
+  return { start: toIso(start), end: toIso(end) };
+}
+
+async function renderTopServices() {
+  const wrap = document.getElementById('dashboardServices');
+  if (!wrap) return;
+
+  try {
+    const { start, end } = monthRange();
+    const period = document.getElementById('dashboardServicesPeriod');
+    if (period) period.textContent = 'Este mes';
+
+    const citas = await fetchJson(`${DASHBOARD_API}/citas/rango?inicio=${start}&fin=${end}`);
+    const serviceEntries = await Promise.all((Array.isArray(citas) ? citas : []).map(c => loadCitaServicios(c.id)));
+    const counts = new Map();
+
+    serviceEntries.flat().forEach(item => {
+      const name = item.servicio?.nombre || 'Sin nombre';
+      counts.set(name, (counts.get(name) || 0) + 1);
+    });
+
+    const top = [...counts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    if (top.length === 0) {
+      wrap.innerHTML = '<p class="dashboard-empty">Aún no hay servicios registrados en citas de este mes.</p>';
+      return;
+    }
+
+    const max = Math.max(...top.map(([, count]) => count), 1);
+    wrap.innerHTML = top.map(([name, count]) => {
+      const pct = Math.max(8, Math.round((count / max) * 100));
+      return `
+        <div class="service-bar">
+          <span class="service-bar__name" title="${escN(name)}">${escN(name)}</span>
+          <div class="service-bar__track">
+            <div class="service-bar__fill" style="width:${pct}%"></div>
+          </div>
+          <span class="service-bar__pct">${formatNumber(count)}</span>
+        </div>`;
+    }).join('');
+  } catch (err) {
+    console.error('renderTopServices:', err);
+    wrap.innerHTML = '<p class="dashboard-empty dashboard-empty--error">No se pudieron cargar los servicios.</p>';
+  }
+}
+
+function initDashboard() {
+  if (!document.querySelector('[data-dashboard]')) return;
+  loadDashboardStats();
+  renderTodayAppointments();
+  renderTopServices();
+}
+
+initDashboard();
+
 // ── Notificaciones ────────────────────────────────────────────────────────────
 
 function escN(str) {

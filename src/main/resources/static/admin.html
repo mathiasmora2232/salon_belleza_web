@@ -221,7 +221,7 @@
           <h1 class="content__title">Buenos días ✦</h1>
           <p class="content__sub">Aquí tienes el resumen de hoy en Belleza & Estilo</p>
         </div>
-        <a href="#" class="btn-action">
+        <a href="citas.html" class="btn-action">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
           </svg>
@@ -242,15 +242,15 @@
               </svg>
             </div>
           </div>
-          <div class="stat-card__value">12</div>
+          <div class="stat-card__value" data-dashboard="citasHoy">0</div>
           <div class="stat-card__footer">
-            <span class="stat-card__trend stat-card__trend--up">↑ 3 más que ayer</span>
+            <span class="stat-card__trend" data-dashboard-meta="citasHoy">Cargando datos reales</span>
           </div>
         </div>
 
         <div class="stat-card">
           <div class="stat-card__header">
-            <span class="stat-card__label">Clientes totales</span>
+            <span class="stat-card__label">Clientes activos</span>
             <div class="stat-card__icon stat-card__icon--blue">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -258,9 +258,9 @@
               </svg>
             </div>
           </div>
-          <div class="stat-card__value">248</div>
+          <div class="stat-card__value" data-dashboard="clientesActivos">0</div>
           <div class="stat-card__footer">
-            <span class="stat-card__trend stat-card__trend--up">↑ 12 este mes</span>
+            <span class="stat-card__trend" data-dashboard-meta="clientesActivos">Desde la base</span>
           </div>
         </div>
 
@@ -274,15 +274,15 @@
               </svg>
             </div>
           </div>
-          <div class="stat-card__value">$3,840</div>
+          <div class="stat-card__value" data-dashboard="ingresosMesActual">$0.00</div>
           <div class="stat-card__footer">
-            <span class="stat-card__trend stat-card__trend--up">↑ 8% vs mes anterior</span>
+            <span class="stat-card__trend" data-dashboard-meta="ingresosMesActual">Facturas del mes actual</span>
           </div>
         </div>
 
         <div class="stat-card">
           <div class="stat-card__header">
-            <span class="stat-card__label">Productos en stock</span>
+            <span class="stat-card__label">Servicios activos</span>
             <div class="stat-card__icon stat-card__icon--rose">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -290,9 +290,9 @@
               </svg>
             </div>
           </div>
-          <div class="stat-card__value">64</div>
+          <div class="stat-card__value" data-dashboard="serviciosActivos">0</div>
           <div class="stat-card__footer">
-            <span class="stat-card__trend stat-card__trend--down">↓ 3 bajo mínimo</span>
+            <span class="stat-card__trend" data-dashboard-meta="serviciosActivos">Catálogo disponible</span>
           </div>
         </div>
 
@@ -305,7 +305,7 @@
         <div class="panel">
           <div class="panel__header">
             <h2 class="panel__title">Citas de hoy</h2>
-            <a href="#" class="panel__link">Ver todas →</a>
+            <a href="citas.html" class="panel__link">Ver todas →</a>
           </div>
           <div class="panel__body">
             <table class="citas-table">
@@ -318,66 +318,9 @@
                   <th>Estado</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="dashboardCitasBody">
                 <tr>
-                  <td class="citas-table__time">09:00</td>
-                  <td>
-                    <div class="citas-table__client">
-                      <div class="citas-table__avatar" style="background: linear-gradient(135deg,#D4A5A5,#8B6B6B)">S</div>
-                      Sofía Martínez
-                    </div>
-                  </td>
-                  <td>Color & Mechas</td>
-                  <td>Valentina Ríos</td>
-                  <td><span class="badge badge--done">Completada</span></td>
-                </tr>
-                <tr>
-                  <td class="citas-table__time">10:30</td>
-                  <td>
-                    <div class="citas-table__client">
-                      <div class="citas-table__avatar" style="background: linear-gradient(135deg,#A5C4D4,#5A7B8B)">L</div>
-                      Lucía Fernández
-                    </div>
-                  </td>
-                  <td>Manicure Gel</td>
-                  <td>Gabriela Salas</td>
-                  <td><span class="badge badge--progress">En progreso</span></td>
-                </tr>
-                <tr>
-                  <td class="citas-table__time">12:00</td>
-                  <td>
-                    <div class="citas-table__client">
-                      <div class="citas-table__avatar" style="background: linear-gradient(135deg,#C4D4A5,#7B8B5A)">M</div>
-                      María Torres
-                    </div>
-                  </td>
-                  <td>Corte & Peinado</td>
-                  <td>Andrés Morales</td>
-                  <td><span class="badge badge--pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td class="citas-table__time">14:00</td>
-                  <td>
-                    <div class="citas-table__client">
-                      <div class="citas-table__avatar" style="background: linear-gradient(135deg,#D4B5D4,#8B5A8B)">A</div>
-                      Ana Gutiérrez
-                    </div>
-                  </td>
-                  <td>Facial & Spa</td>
-                  <td>Carolina Vega</td>
-                  <td><span class="badge badge--pending">Pendiente</span></td>
-                </tr>
-                <tr>
-                  <td class="citas-table__time">15:30</td>
-                  <td>
-                    <div class="citas-table__client">
-                      <div class="citas-table__avatar" style="background: linear-gradient(135deg,#C9A84C,#8B6B30)">P</div>
-                      Paola Reyes
-                    </div>
-                  </td>
-                  <td>Tratamiento Keratina</td>
-                  <td>Valentina Ríos</td>
-                  <td><span class="badge badge--pending">Pendiente</span></td>
+                  <td colspan="5" class="dashboard-empty">Cargando citas de hoy…</td>
                 </tr>
               </tbody>
             </table>
@@ -394,15 +337,15 @@
             </div>
             <div class="panel__body">
               <div class="quick-actions">
-                <button type="button" class="quick-action">
+                <a href="citas.html" class="quick-action">
                   <div class="quick-action__icon quick-action__icon--gold">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                       <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
                     </svg>
                   </div>
                   <span>Nueva cita</span>
-                </button>
-                <button type="button" class="quick-action">
+                </a>
+                <a href="usuarios.html" class="quick-action">
                   <div class="quick-action__icon quick-action__icon--blue">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -410,8 +353,8 @@
                     </svg>
                   </div>
                   <span>Nuevo cliente</span>
-                </button>
-                <button type="button" class="quick-action">
+                </a>
+                <a href="citas.html" class="quick-action">
                   <div class="quick-action__icon quick-action__icon--green">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                       <line x1="12" y1="1" x2="12" y2="23"/>
@@ -419,15 +362,15 @@
                     </svg>
                   </div>
                   <span>Crear factura</span>
-                </button>
-                <button type="button" class="quick-action">
+                </a>
+                <a href="citas.html" class="quick-action">
                   <div class="quick-action__icon quick-action__icon--rose">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                       <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
                     </svg>
                   </div>
                   <span>Ver reporte</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -436,45 +379,11 @@
           <div class="panel">
             <div class="panel__header">
               <h2 class="panel__title">Servicios más solicitados</h2>
-              <span class="panel__period">Este mes</span>
+              <span class="panel__period" id="dashboardServicesPeriod">Según citas registradas</span>
             </div>
             <div class="panel__body">
-              <div class="service-bars">
-                <div class="service-bar">
-                  <span class="service-bar__name">Color & Mechas</span>
-                  <div class="service-bar__track">
-                    <div class="service-bar__fill" style="width:82%"></div>
-                  </div>
-                  <span class="service-bar__pct">82%</span>
-                </div>
-                <div class="service-bar">
-                  <span class="service-bar__name">Corte & Peinado</span>
-                  <div class="service-bar__track">
-                    <div class="service-bar__fill" style="width:65%"></div>
-                  </div>
-                  <span class="service-bar__pct">65%</span>
-                </div>
-                <div class="service-bar">
-                  <span class="service-bar__name">Manicure Gel</span>
-                  <div class="service-bar__track">
-                    <div class="service-bar__fill" style="width:54%"></div>
-                  </div>
-                  <span class="service-bar__pct">54%</span>
-                </div>
-                <div class="service-bar">
-                  <span class="service-bar__name">Facial & Spa</span>
-                  <div class="service-bar__track">
-                    <div class="service-bar__fill" style="width:38%"></div>
-                  </div>
-                  <span class="service-bar__pct">38%</span>
-                </div>
-                <div class="service-bar">
-                  <span class="service-bar__name">Tratamientos</span>
-                  <div class="service-bar__track">
-                    <div class="service-bar__fill" style="width:29%"></div>
-                  </div>
-                  <span class="service-bar__pct">29%</span>
-                </div>
+              <div class="service-bars" id="dashboardServices">
+                <p class="dashboard-empty">Cargando servicios…</p>
               </div>
             </div>
           </div>
