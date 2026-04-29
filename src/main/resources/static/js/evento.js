@@ -7,6 +7,7 @@ let members = [];
 let memberIdCounter = 0;
 let currentStep = 1;
 let packagesLoading = null;
+let reservationCreated = false;
 
 const ROLES = ['Novia', 'Mamá de la novia', 'Dama de honor', 'Hermana', 'Familiar', 'Amiga'];
 const COLORS = ['#C9A84C', '#8B6B8B', '#5A7B8B', '#7B8B5A', '#8B5E3C', '#5A5A8B', '#8B5A5A', '#6B8B6B'];
@@ -149,12 +150,19 @@ async function handleNext() {
       showEventStatus(validation.message, 'error');
       return;
     }
+    reservationCreated = false;
     generateTimeline();
-    submitEventReservation();
+    goToStep(3);
+    showEventStatus('Revisa el resumen. La cita todavía no se agenda hasta confirmar.', '');
     return;
   }
 
-  shareWhatsAppAction();
+  if (reservationCreated) {
+    shareWhatsAppAction();
+    return;
+  }
+
+  submitEventReservation();
 }
 
 async function ensurePackageSelected() {
@@ -183,7 +191,11 @@ function goToStep(step) {
 
   document.getElementById('evBack').hidden = step === 1;
   const nextBtn = document.getElementById('evNext');
-  nextBtn.innerHTML = step === 3 ? 'Compartir' : 'Siguiente <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ev-next__icon"><polyline points="9 18 15 12 9 6"/></svg>';
+  if (step === 3) {
+    nextBtn.innerHTML = reservationCreated ? 'Compartir' : 'Confirmar reserva';
+  } else {
+    nextBtn.innerHTML = 'Siguiente <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ev-next__icon"><polyline points="9 18 15 12 9 6"/></svg>';
+  }
   currentStep = step;
 }
 
@@ -357,12 +369,32 @@ function renderGantt(schedule, startMin, maxEnd) {
 function renderSummary(schedule, startMin, maxEnd) {
   const totalPrice = schedule.reduce((acc, { member }) =>
     acc + member.services.reduce((s, sid) => s + (findSelectedService(sid)?.price || 0), 0), 0);
+  const eventDate = document.getElementById('eventDate').value;
+  const eventType = document.querySelector('input[name="eventType"]:checked')?.value || 'evento';
+  const contactName = document.getElementById('contactName').value.trim();
+  const contactPhone = document.getElementById('contactPhone').value.trim();
+  const people = schedule.map(({ member }) => {
+    const svcs = member.services.map(sid => findSelectedService(sid)?.name).filter(Boolean).join(', ');
+    return `<li><strong>${escapeHtml(member.name || member.role)}</strong><span>${escapeHtml(member.role)} · ${escapeHtml(svcs)}</span></li>`;
+  }).join('');
   document.getElementById('timelineSummary').innerHTML = `
+    <div class="summary-confirm">
+      <span class="summary-confirm__eyebrow">Confirmación pendiente</span>
+      <strong>Revisa estos datos antes de agendar.</strong>
+      <p>Al presionar Confirmar reserva se creará la cita en la base.</p>
+    </div>
     <div class="summary-item"><span class="summary-item__label">Paquete</span><span class="summary-item__value">${escapeHtml(selectedPack.nombre)}</span></div>
+    <div class="summary-item"><span class="summary-item__label">Tipo de evento</span><span class="summary-item__value">${escapeHtml(capitalize(eventType))}</span></div>
+    <div class="summary-item"><span class="summary-item__label">Fecha</span><span class="summary-item__value">${formatDate(eventDate)}</span></div>
+    <div class="summary-item"><span class="summary-item__label">Contacto</span><span class="summary-item__value">${escapeHtml(contactName)} · ${escapeHtml(contactPhone)}</span></div>
     <div class="summary-item"><span class="summary-item__label">Inicio</span><span class="summary-item__value">${minToTime(startMin)}</span></div>
     <div class="summary-item"><span class="summary-item__label">Finalización estimada</span><span class="summary-item__value">${minToTime(maxEnd)}</span></div>
     <div class="summary-item"><span class="summary-item__label">Total de personas</span><span class="summary-item__value">${schedule.length}</span></div>
-    <div class="summary-item"><span class="summary-item__label">Total estimado servicios</span><span class="summary-item__value summary-item__value--gold">$${formatMoney(totalPrice)}</span></div>`;
+    <div class="summary-item"><span class="summary-item__label">Total estimado servicios</span><span class="summary-item__value summary-item__value--gold">$${formatMoney(totalPrice)}</span></div>
+    <div class="summary-people">
+      <span class="summary-item__label">Integrantes y servicios</span>
+      <ul>${people}</ul>
+    </div>`;
 }
 
 async function submitEventReservation() {
@@ -396,8 +428,9 @@ async function submitEventReservation() {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.message || data.error || 'No se pudo crear la reserva.');
-    showEventStatus(`Reserva creada con paquete "${selectedPack.nombre}". Cita #${data.id || 'registrada'}.`, 'ok');
+    reservationCreated = true;
     goToStep(3);
+    showEventStatus(`Reserva creada con paquete "${selectedPack.nombre}". Cita #${data.id || 'registrada'}.`, 'ok');
   } catch (err) {
     showEventStatus(err.message || 'No se pudo enviar la solicitud.', 'error');
   } finally {
