@@ -10,6 +10,8 @@ target/
 .classpath
 .project
 *.log
+.claude/
+.playwright-cli/
 
 # Local secrets — never commit
 application-local.properties
