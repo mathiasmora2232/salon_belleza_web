@@ -203,21 +203,21 @@ a { text-decoration: none; color: inherit; }
   min-height: 640px;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #1a0a0a 0%, #2c1810 40%, #1a1008 100%);
+  background:
+    linear-gradient(90deg, rgba(17,16,16,0.92) 0%, rgba(17,16,16,0.76) 42%, rgba(17,16,16,0.34) 100%),
+    url("../img/landing/AdobeStock_378862442-scaled-1.jpeg") center right / cover no-repeat;
   overflow: hidden;
 }
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,168,76,0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.44));
 }
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.08);
 }
 .hero__content {
   position: relative;
@@ -255,14 +255,19 @@ a { text-decoration: none; color: inherit; }
 /* Hero visual */
 .hero__visual {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: min(34vw, 380px);
+  height: 460px;
   flex-shrink: 0;
+  border: 1px solid rgba(232,213,163,0.32);
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(17,16,16,0) 45%, rgba(17,16,16,0.72) 100%),
+    url("../img/landing/Salon-de-belleza-en-San-Cristobal.jpg") center / cover no-repeat;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.28);
 }
 .hero__circle {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(201,168,76,0.2);
+  display: none;
 }
 .hero__circle--1 {
   width: 300px; height: 300px;
@@ -286,7 +291,7 @@ a { text-decoration: none; color: inherit; }
 }
 .hero__glass {
   position: absolute;
-  background: rgba(255,255,255,0.05);
+  background: rgba(17,16,16,0.54);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(201,168,76,0.25);
@@ -294,11 +299,11 @@ a { text-decoration: none; color: inherit; }
   padding: 20px 24px;
   text-align: center;
   bottom: 20px;
-  right: 10px;
+  right: 18px;
 }
 .hero__glass--sm {
-  top: 20px;
-  right: 0;
+  top: 18px;
+  right: 18px;
   bottom: auto;
   padding: 14px 20px;
 }
@@ -413,11 +418,13 @@ a { text-decoration: none; color: inherit; }
   border-radius: 50%;
   margin: 0 auto 20px;
   border: 3px solid var(--gold);
+  background-size: cover;
+  background-position: center;
 }
-.team__avatar--1 { background: linear-gradient(135deg, #8B6B6B, #C4906A); }
-.team__avatar--2 { background: linear-gradient(135deg, #6B7B8B, #8BA0B0); }
-.team__avatar--3 { background: linear-gradient(135deg, #8B6B8B, #C490C4); }
-.team__avatar--4 { background: linear-gradient(135deg, #6B8B7B, #90C4A0); }
+.team__avatar--1 { background-image: url("../img/landing/4504-Pasos-para-abrir-un-salón-de-belleza.jpg"); }
+.team__avatar--2 { background-image: url("../img/landing/pelo-de-sequía-de-la-mujer-del-estilista-en-salón-de-belleza-73316692.webp"); }
+.team__avatar--3 { background-image: url("../img/landing/beauty1-1030x686.jpg"); }
+.team__avatar--4 { background-image: url("../img/landing/recepcion_de_cliente_1.webp"); }
 .team__name { font-size: 1.3rem; color: var(--white); margin-bottom: 4px; }
 .team__role { font-size: 0.82rem; color: var(--gold-lt); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
 .team__exp { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
@@ -436,18 +443,27 @@ a { text-decoration: none; color: inherit; }
   overflow: hidden;
   transition: transform var(--trans);
   cursor: pointer;
+  background-size: cover;
+  background-position: center;
+}
+.gallery__item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(0,0,0,0.52) 100%);
 }
 .gallery__item:hover { transform: scale(1.02); }
 .gallery__item:hover .gallery__label { opacity: 1; }
 .gallery__item--lg { grid-row: span 2; aspect-ratio: auto; }
-.gallery__item--color1 { background: linear-gradient(135deg, #D4A5A5, #8B6B6B); }
-.gallery__item--color2 { background: linear-gradient(135deg, #C9A84C, #8B6B30); }
-.gallery__item--color3 { background: linear-gradient(135deg, #A5C4D4, #5A7B8B); }
-.gallery__item--color4 { background: linear-gradient(135deg, #D4B5D4, #8B5A8B); }
-.gallery__item--color5 { background: linear-gradient(135deg, #C4D4A5, #7B8B5A); }
-.gallery__item--color6 { background: linear-gradient(135deg, #D4C4A5, #8B7B5A); }
+.gallery__item--color1 { background-image: url("../img/landing/Licencia-actividad-salon-belleza-peluquería-1.jpeg"); }
+.gallery__item--color2 { background-image: url("../img/landing/AdobeStock_378862442-scaled-1.jpeg"); background-position: 58% center; }
+.gallery__item--color3 { background-image: url("../img/landing/beauty1-1030x686.jpg"); }
+.gallery__item--color4 { background-image: url("../img/landing/emprender-estetica-belleza-mexico.webp"); }
+.gallery__item--color5 { background-image: url("../img/landing/Salon-de-belleza-en-San-Cristobal.jpg"); }
+.gallery__item--color6 { background-image: url("../img/landing/recepcion_de_cliente_1.webp"); }
 .gallery__label {
   position: absolute;
+  z-index: 1;
   bottom: 14px; left: 14px;
   background: rgba(0,0,0,0.45);
   -webkit-backdrop-filter: blur(4px);
@@ -484,15 +500,24 @@ a { text-decoration: none; color: inherit; }
   position: relative;
   height: 180px;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
 }
-.catalog-card__img--1 { background: linear-gradient(135deg, #D4A5A5 0%, #8B5E3C 100%); }
-.catalog-card__img--2 { background: linear-gradient(135deg, #C9A84C 0%, #8B6B30 100%); }
-.catalog-card__img--3 { background: linear-gradient(135deg, #A5C4D4 0%, #5A7B8B 100%); }
-.catalog-card__img--4 { background: linear-gradient(135deg, #D4B5D4 0%, #8B5A8B 100%); }
-.catalog-card__img--5 { background: linear-gradient(135deg, #C4D4A5 0%, #7B8B5A 100%); }
-.catalog-card__img--6 { background: linear-gradient(135deg, #D4C4A5 0%, #8B7B5A 100%); }
+.catalog-card__img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.34));
+}
+.catalog-card__img--1 { background-image: url("../img/landing/emprender-estetica-belleza-mexico.webp"); }
+.catalog-card__img--2 { background-image: url("../img/landing/Licencia-actividad-salon-belleza-peluquería-1.jpeg"); }
+.catalog-card__img--3 { background-image: url("../img/landing/image3.png"); background-position: center 24%; }
+.catalog-card__img--4 { background-image: url("../img/landing/beauty1-1030x686.jpg"); }
+.catalog-card__img--5 { background-image: url("../img/landing/recepcion_de_cliente_1.webp"); }
+.catalog-card__img--6 { background-image: url("../img/landing/4504-Pasos-para-abrir-un-salón-de-belleza.jpg"); }
 .catalog-card__cat {
   position: absolute;
+  z-index: 1;
   top: 12px; left: 12px;
   background: rgba(0,0,0,0.45);
   -webkit-backdrop-filter: blur(4px);
