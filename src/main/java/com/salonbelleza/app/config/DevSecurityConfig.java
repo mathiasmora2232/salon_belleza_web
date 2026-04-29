@@ -17,29 +17,29 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@Profile("local")
 @RequiredArgsConstructor
-@Profile("!local")
-public class SecurityConfig {
+public class DevSecurityConfig {
 
     private final JwtFilter jwtFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain devSecurityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                // Páginas estáticas — protegidas por auth-guard.js en el cliente
-                .requestMatchers("/*.html", "/", "/css/**", "/js/**", "/img/**").permitAll()
-                // Endpoints públicos
+                // En local: GET libre para explorar la API sin token
+                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                // Auth y Swagger siempre abiertos
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/chat").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/citas/publica").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/citas/publica").permitAll()
-                // GET libre para explorar datos desde el portal y Swagger sin token
-                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                // POST/PUT/PATCH/DELETE requieren token
+                // Estáticos
+                .requestMatchers("/*.html", "/", "/css/**", "/js/**", "/img/**").permitAll()
+                // POST/PUT/PATCH/DELETE siguen requiriendo token incluso en local
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

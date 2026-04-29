@@ -2,12 +2,16 @@ package com.salonbelleza.app.controller;
 
 import com.salonbelleza.app.dto.LoginRequest;
 import com.salonbelleza.app.dto.LoginResponse;
+import com.salonbelleza.app.dto.RefreshTokenRequest;
 import com.salonbelleza.app.dto.RegisterRequest;
 import com.salonbelleza.app.entity.Rol;
 import com.salonbelleza.app.entity.Usuario;
 import com.salonbelleza.app.repository.RolRepository;
 import com.salonbelleza.app.repository.UsuarioRepository;
 import com.salonbelleza.app.security.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@Tag(name = "01 - Autenticacion", description = "Login, token admin, refresh token y usuario actual.")
 public class AuthController {
 
     private final UsuarioRepository usuarioRepository;
@@ -30,10 +35,37 @@ public class AuthController {
 
     private static final int MAX_INTENTOS = 5;
     private static final int BLOQUEO_MINUTOS = 15;
+    private static final String ADMIN_LOGIN = "admin";
+    private static final String ADMIN_PASSWORD = "12";
 
+    @Operation(
+            summary = "Obtener token admin",
+            description = "Devuelve un JWT y refresh token para el usuario local de prueba admin / 12."
+    )
+    @SecurityRequirements
+    @PostMapping("/admin-token")
+    public ResponseEntity<?> adminToken() {
+        LoginRequest req = new LoginRequest();
+        req.setEmail(ADMIN_LOGIN);
+        req.setPassword(ADMIN_PASSWORD);
+        return authenticate(req);
+    }
+
+    @Operation(
+            summary = "Autenticacion con usuario y contrasena",
+            description = "Acepta email o username. Para pruebas locales usa admin / 12."
+    )
+    @SecurityRequirements
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest req) {
-        Usuario usuario = usuarioRepository.findByEmail(req.getEmail()).orElse(null);
+        return authenticate(req);
+    }
+
+    private ResponseEntity<?> authenticate(LoginRequest req) {
+        String login = req.getEmail() != null ? req.getEmail().trim() : "";
+        Usuario usuario = usuarioRepository.findByEmail(login)
+                .or(() -> usuarioRepository.findByUsername(login))
+                .orElse(null);
 
         if (usuario == null) {
             return ResponseEntity.status(401).body(Map.of("error", "Credenciales incorrectas."));
@@ -88,6 +120,8 @@ public class AuthController {
                 .build());
     }
 
+    @Operation(summary = "Registrar cliente")
+    @SecurityRequirements
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest req) {
         if (usuarioRepository.existsByEmail(req.getEmail())) {
@@ -130,9 +164,14 @@ public class AuthController {
                 .build());
     }
 
+    @Operation(
+            summary = "Obtener refresh token",
+            description = "Recibe un refresh token valido y devuelve un nuevo token JWT y un nuevo refresh token."
+    )
+    @SecurityRequirements
     @PostMapping("/refresh")
-    public ResponseEntity<?> refresh(@RequestBody Map<String, String> body) {
-        String refreshToken = body.get("refreshToken");
+    public ResponseEntity<?> refresh(@Valid @RequestBody RefreshTokenRequest body) {
+        String refreshToken = body.getRefreshToken();
         if (refreshToken == null || refreshToken.isBlank()) {
             return ResponseEntity.status(400).body(Map.of("error", "refreshToken requerido."));
         }
@@ -156,6 +195,7 @@ public class AuthController {
         ));
     }
 
+    @Operation(summary = "Usuario autenticado")
     @GetMapping("/me")
     public ResponseEntity<?> me(@RequestHeader("Authorization") String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
