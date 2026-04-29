@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -39,13 +39,15 @@
         </svg>
         <span>Citas</span>
       </a>
-      <a href="#" class="sidebar__link">
+      <a href="calendario.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="15" cy="16" r="3"/><path d="M15 15v1l.7.7"/></svg><span>Calendario</span></a>
+      <a href="eventos-reservas.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg><span>Eventos</span></a>
+      <a href="clientes.html" class="sidebar__link">
         <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
         </svg>
         <span>Clientes</span>
       </a>
-      <a href="#" class="sidebar__link">
+      <a href="estilistas.html" class="sidebar__link">
         <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
           <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -153,7 +155,7 @@
         <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
         <span>Seguridad</span>
       </a>
-      <a href="#" class="sidebar__link">
+      <a href="configuracion.html" class="sidebar__link">
         <svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
@@ -296,6 +298,50 @@
           </div>
         </div>
 
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <span class="stat-card__label">Ingresos del día</span>
+            <div class="stat-card__icon stat-card__icon--green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+          </div>
+          <div class="stat-card__value" data-dashboard="ingresosDia">$0.00</div>
+          <div class="stat-card__footer"><span class="stat-card__trend" data-dashboard-meta="ingresosDia">Cobros confirmados hoy</span></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <span class="stat-card__label">Clientes nuevos</span>
+            <div class="stat-card__icon stat-card__icon--blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+          </div>
+          <div class="stat-card__value" data-dashboard="clientesNuevosHoy">0</div>
+          <div class="stat-card__footer"><span class="stat-card__trend" data-dashboard-meta="clientesNuevosHoy">Registrados hoy</span></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <span class="stat-card__label">Recurrentes</span>
+            <div class="stat-card__icon stat-card__icon--gold">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            </div>
+          </div>
+          <div class="stat-card__value" data-dashboard="clientesRecurrentes">0</div>
+          <div class="stat-card__footer"><span class="stat-card__trend" data-dashboard-meta="clientesRecurrentes">Con más de una cita</span></div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <span class="stat-card__label">Stock bajo</span>
+            <div class="stat-card__icon stat-card__icon--rose">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+          </div>
+          <div class="stat-card__value" data-dashboard="stockBajo">0</div>
+          <div class="stat-card__footer"><span class="stat-card__trend" data-dashboard-meta="stockBajo">Productos por revisar</span></div>
+        </div>
+
       </div>
 
       <!-- BOTTOM GRID -->
@@ -384,6 +430,20 @@
             <div class="panel__body">
               <div class="service-bars" id="dashboardServices">
                 <p class="dashboard-empty">Cargando servicios…</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel__header">
+              <h2 class="panel__title">Pulso operativo</h2>
+            </div>
+            <div class="panel__body">
+              <div class="dashboard-mini-grid">
+                <div><span>Citas canceladas</span><strong data-dashboard="citasCanceladasHoy">0</strong></div>
+                <div><span>Facturas pendientes</span><strong data-dashboard="facturasPendientes">0</strong></div>
+                <div><span>Productos activos</span><strong data-dashboard="productosActivos">0</strong></div>
+                <div><span>Top ventas</span><strong>POS pendiente</strong></div>
               </div>
             </div>
           </div>

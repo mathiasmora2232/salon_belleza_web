@@ -34,4 +34,9 @@ public interface FacturaRepository extends JpaRepository<Factura, Long> {
                    "AND EXTRACT(MONTH FROM fecha) = :month",
            nativeQuery = true)
     BigDecimal sumIngresosDelMesNative(@Param("year") int year, @Param("month") int month);
+
+    @Query(value = "SELECT COALESCE(SUM(total), 0) FROM facturas " +
+                   "WHERE estado = 'PAGADA' AND DATE(fecha) = CURRENT_DATE",
+           nativeQuery = true)
+    BigDecimal sumIngresosDiaNative();
 }

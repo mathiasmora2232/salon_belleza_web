@@ -39,6 +39,15 @@ public class ClienteFicha {
     @Column(name = "preferencias", columnDefinition = "TEXT")
     private String preferencias;
 
+    @Column(name = "formula_color", columnDefinition = "TEXT")
+    private String formulaColor;
+
+    @Column(name = "foto_antes_url", length = 300)
+    private String fotoAntesUrl;
+
+    @Column(name = "foto_despues_url", length = 300)
+    private String fotoDespuesUrl;
+
     @Column(name = "notas", columnDefinition = "TEXT")
     private String notas;
 

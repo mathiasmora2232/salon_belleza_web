@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Roles — Belleza &amp; Estilo</title>
+  <title>Clientes — Belleza &amp; Estilo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -17,6 +17,7 @@
       <p class="sidebar__section-label">Principal</p>
       <a href="admin.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span>Dashboard</span></a>
       <a href="citas.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span>Citas</span></a>
+      <a href="calendario.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="15" cy="16" r="3"/><path d="M15 15v1l.7.7"/></svg><span>Calendario</span></a>
       <a href="eventos-reservas.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg><span>Eventos</span></a>
       <a href="clientes.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Clientes</span></a>
       <a href="estilistas.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Estilistas</span></a>
@@ -36,7 +37,7 @@
       <a href="usuarios.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Usuarios</span></a>
       <a href="roles.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Roles</span></a>
       <a href="seguridad.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg><span>Seguridad</span></a>
-      <a href="configuracion.html" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Configuración</span></a>
+      <a href="#" class="sidebar__link"><svg class="sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Configuración</span></a>
     </nav>
   </aside>
 
@@ -44,7 +45,7 @@
     <header class="topbar">
       <div class="topbar__left">
         <button type="button" class="topbar__menu-btn" id="mobileSidebarToggle" aria-label="Menú"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-        <div class="topbar__search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Buscar roles…" class="topbar__search-input" /></div>
+        <div class="topbar__search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="text" placeholder="Buscar clientes…" class="topbar__search-input" /></div>
       </div>
       <div class="topbar__right">
         <div class="notif-wrap" id="notifWrap">
@@ -54,24 +55,97 @@
         <div class="topbar__user"><div class="topbar__avatar">A</div><div class="topbar__user-info"><span class="topbar__user-name">Administrador</span><span class="topbar__user-date" id="currentDate"></span></div></div>
       </div>
     </header>
+
     <div class="content">
       <div class="content__header">
-        <div><h1 class="content__title">Roles y Permisos</h1><p class="content__sub">Define niveles de acceso y permisos por rol</p></div>
-        <button type="button" class="btn-action"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Nuevo rol</button>
+        <div><h1 class="content__title">Clientes</h1><p class="content__sub">Directorio de clientas del salón</p></div>
+        <button type="button" class="btn-action" id="btnNuevoCliente">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nuevo cliente
+        </button>
       </div>
+
       <div class="panel">
         <div class="panel__body" style="padding:0">
-          <table class="citas-full-table">
-            <thead><tr><th>Nombre</th><th>Descripción</th><th>Permisos asignados</th><th>Usuarios</th><th>Acciones</th></tr></thead>
-            <tbody><tr><td colspan="5" class="table-empty">Sin roles configurados</td></tr></tbody>
+          <table class="citas-full-table" id="clientesTable">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Ciudad</th>
+                <th>Registro</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="clientesTbody">
+              <tr><td colspan="7" class="table-empty">Cargando clientes…</td></tr>
+            </tbody>
           </table>
         </div>
       </div>
     </div>
   </main>
 
+  <!-- Modal nuevo/editar cliente -->
+  <div class="modal-overlay" id="clienteModalOverlay" hidden>
+    <div class="modal" id="clienteModal">
+      <div class="modal__header">
+        <h2 class="modal__title" id="clienteModalTitle">Nuevo cliente</h2>
+        <button type="button" class="modal__close" id="clienteModalClose">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form class="modal__form" id="clienteForm" novalidate>
+        <input type="hidden" id="clienteId" />
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="clienteNombre">Nombre *</label>
+            <input class="form-input" type="text" id="clienteNombre" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="clienteApellido">Apellido</label>
+            <input class="form-input" type="text" id="clienteApellido" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="clienteTelefono">Teléfono</label>
+            <input class="form-input" type="tel" id="clienteTelefono" placeholder="+593 98…" />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="clienteEmail">Email</label>
+            <input class="form-input" type="email" id="clienteEmail" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="clienteCiudad">Ciudad</label>
+            <input class="form-input" type="text" id="clienteCiudad" placeholder="Quito" />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="clienteEstado">Estado</label>
+            <select class="form-input" id="clienteEstado">
+              <option value="Activo">Activo</option>
+              <option value="Inactivo">Inactivo</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="clienteDireccion">Dirección</label>
+          <input class="form-input" type="text" id="clienteDireccion" />
+        </div>
+        <div class="modal__footer">
+          <button type="button" class="btn-cancel" id="clienteModalCancel">Cancelar</button>
+          <button type="submit" class="btn-action" id="clienteSubmitBtn">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <script src="js/auth-guard.js"></script>
   <script src="js/admin.js"></script>
-  <script src="js/roles.js"></script>
+  <script src="js/clientes.js"></script>
 </body>
 </html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historial del cliente — Belleza &amp; Estilo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/citas.css" />
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__logo">
+      <span class="sidebar__logo-text">Belleza <em>&</em> Estilo</span>
+      <button type="button" class="sidebar__collapse" id="sidebarToggle" aria-label="Colapsar menú">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+    </div>
+    <nav class="sidebar__nav"></nav>
+  </aside>
+
+  <main class="main" id="mainContent">
+    <header class="topbar">
+      <div class="topbar__left">
+        <button type="button" class="topbar__menu-btn" id="mobileSidebarToggle" aria-label="Menú">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar__search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Buscar cliente..." class="topbar__search-input" id="historialSearch" />
+        </div>
+      </div>
+      <div class="topbar__right">
+        <div class="topbar__user"><div class="topbar__avatar">A</div><div class="topbar__user-info"><span class="topbar__user-name">Administrador</span><span class="topbar__user-date" id="currentDate"></span></div></div>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="content__header">
+        <div>
+          <h1 class="content__title">Historial del cliente</h1>
+          <p class="content__sub">Ficha técnica, preferencias, visitas, compras y notas internas.</p>
+        </div>
+        <a href="clientes.html" class="btn-action">Clientes</a>
+      </div>
+
+      <div class="history-layout">
+        <section class="panel history-client-list">
+          <div class="panel__header">
+            <h2 class="panel__title">Clientes</h2>
+          </div>
+          <div class="panel__body">
+            <div id="historialClientes" class="history-list">
+              <p class="dashboard-empty">Cargando clientes...</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="history-detail">
+          <div class="panel">
+            <div class="panel__body history-profile" id="historyProfile">
+              <p class="dashboard-empty">Selecciona un cliente para ver su historial.</p>
+            </div>
+          </div>
+
+          <div class="history-grid">
+            <div class="panel">
+              <div class="panel__header"><h2 class="panel__title">Ficha técnica</h2></div>
+              <div class="panel__body">
+                <form id="fichaForm" class="history-form">
+                  <div class="form-row">
+                    <label class="form-field"><span class="form-label">Tipo de cabello</span><input class="form-input" id="tipoCabello" /></label>
+                    <label class="form-field"><span class="form-label">Tipo de piel</span><input class="form-input" id="tipoPiel" /></label>
+                  </div>
+                  <label class="form-field"><span class="form-label">Preferencias</span><textarea class="form-input" id="preferencias" rows="3"></textarea></label>
+                  <label class="form-field"><span class="form-label">Fórmula de color</span><textarea class="form-input" id="formulaColor" rows="3" placeholder="7.1 rubio cenizo + oxidante 20 vol"></textarea></label>
+                  <div class="form-row">
+                    <label class="form-field"><span class="form-label">Alergias</span><textarea class="form-input" id="alergias" rows="2"></textarea></label>
+                    <label class="form-field"><span class="form-label">Productos a evitar</span><textarea class="form-input" id="productosEvitar" rows="2"></textarea></label>
+                  </div>
+                  <label class="form-field"><span class="form-label">Notas de ficha</span><textarea class="form-input" id="notasFicha" rows="3"></textarea></label>
+                  <div class="form-row">
+                    <label class="form-field"><span class="form-label">Foto antes URL</span><input class="form-input" id="fotoAntesUrl" /></label>
+                    <label class="form-field"><span class="form-label">Foto después URL</span><input class="form-input" id="fotoDespuesUrl" /></label>
+                  </div>
+                  <button type="submit" class="btn-action" id="guardarFichaBtn">Guardar ficha</button>
+                </form>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel__header"><h2 class="panel__title">Notas internas</h2></div>
+              <div class="panel__body">
+                <form id="notaForm" class="history-note-form">
+                  <select class="form-input" id="notaTipo">
+                    <option value="General">General</option>
+                    <option value="Color">Color</option>
+                    <option value="Servicio">Servicio</option>
+                    <option value="Alerta">Alerta</option>
+                  </select>
+                  <textarea class="form-input" id="notaContenido" rows="3" placeholder="Ej. no usar tinte con amoníaco"></textarea>
+                  <button type="submit" class="modal-btn modal-btn-primary">Añadir nota</button>
+                </form>
+                <div id="historyNotes" class="history-notes"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="history-grid">
+            <div class="panel">
+              <div class="panel__header"><h2 class="panel__title">Citas</h2></div>
+              <div class="panel__body"><div id="historyCitas" class="history-table-wrap"></div></div>
+            </div>
+            <div class="panel">
+              <div class="panel__header"><h2 class="panel__title">Compras y ventas</h2></div>
+              <div class="panel__body"><div id="historyVentas" class="history-table-wrap"></div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/auth-guard.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/historial.js"></script>
+</body>
+</html>

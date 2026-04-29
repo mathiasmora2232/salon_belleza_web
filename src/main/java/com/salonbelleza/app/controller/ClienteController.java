@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/clientes")
@@ -25,6 +26,11 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getById(@PathVariable Long id) {
         return ResponseEntity.ok(clienteService.findById(id));
+    }
+
+    @GetMapping("/{id}/historial")
+    public ResponseEntity<Map<String, Object>> historial(@PathVariable Long id) {
+        return ResponseEntity.ok(clienteService.historialCompleto(id));
     }
 
     @GetMapping("/buscar")

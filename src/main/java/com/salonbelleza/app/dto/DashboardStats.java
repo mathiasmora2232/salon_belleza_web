@@ -12,10 +12,16 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class DashboardStats {
     private long citasHoy;
+    private long citasCanceladasHoy;
     private long citasPendientesFactura;
     private long clientesActivos;
+    private long clientesNuevosHoy;
+    private long clientesRecurrentes;
     private long estilistaActivos;
     private long serviciosActivos;
+    private long productosActivos;
+    private long stockBajo;
     private long facturasPendientes;
+    private BigDecimal ingresosDia;
     private BigDecimal ingresosMesActual;
 }

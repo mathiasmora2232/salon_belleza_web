@@ -124,6 +124,12 @@ public class FacturaService {
     }
 
     @Transactional(readOnly = true)
+    public BigDecimal ingresosDelDia() {
+        BigDecimal result = facturaRepository.sumIngresosDiaNative();
+        return result != null ? result : BigDecimal.ZERO;
+    }
+
+    @Transactional(readOnly = true)
     public long countPendientes() {
         return facturaRepository.countByEstado("PENDIENTE");
     }
