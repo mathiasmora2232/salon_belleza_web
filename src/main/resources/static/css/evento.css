@@ -720,3 +720,70 @@ a { text-decoration: none; color: inherit; }
   .ev-packs { grid-template-columns: 1fr; }
   .ev-testbar { align-items: flex-start; flex-direction: column; }
 }
+
+/* ===== IMPRESIÓN — solo timeline ===== */
+@media print {
+  @page { size: A4 portrait; margin: 18mm 15mm; }
+
+  header.enav,
+  .evento-hero,
+  #como-funciona,
+  .etag,
+  h2.etitle,
+  .ev-track,
+  #evPanel1,
+  #evPanel2,
+  .ev-testbar,
+  .ev-form-status,
+  .ev-wizard-nav,
+  .timeline-actions,
+  .summary-confirm,
+  footer.efooter,
+  .chat-widget { display: none !important; }
+
+  body, .section--light {
+    background: #fff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .econtainer { padding: 0 !important; max-width: none !important; }
+
+  #evPanel3 { display: block !important; }
+
+  .timeline-panel {
+    border: none !important;
+    border-radius: 0 !important;
+    min-height: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .timeline-content { padding: 0 !important; }
+
+  .timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .timeline-header::before {
+    content: 'Belleza & Estilo';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    display: block;
+  }
+
+  .gantt-wrap { overflow: visible !important; }
+  .gantt { min-width: 0 !important; }
+
+  .gantt-block,
+  .gantt-track,
+  .timeline-summary {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

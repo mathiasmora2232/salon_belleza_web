@@ -8,6 +8,7 @@ let memberIdCounter = 0;
 let currentStep = 1;
 let packagesLoading = null;
 let reservationCreated = false;
+let lastSchedule = null;
 
 const ROLES = ['Novia', 'Mamá de la novia', 'Dama de honor', 'Hermana', 'Familiar', 'Amiga'];
 const COLORS = ['#C9A84C', '#8B6B8B', '#5A7B8B', '#7B8B5A', '#8B5E3C', '#5A5A8B', '#8B5A5A', '#6B8B6B'];
@@ -315,6 +316,7 @@ function generateTimeline() {
     }
   });
 
+  lastSchedule = { schedule, startMin, maxEnd };
   renderGantt(schedule, startMin, maxEnd);
   renderSummary(schedule, startMin, maxEnd);
 
@@ -456,17 +458,39 @@ function buildEventNotes(eventType, active) {
 }
 
 function shareWhatsAppAction() {
-  const active = members.filter(m => m.services.length > 0);
   const eventDate = document.getElementById('eventDate').value;
   const eventType = document.querySelector('input[name="eventType"]:checked')?.value || 'evento';
-  let msg = `*BELLEZA & ESTILO — ${capitalize(eventType).toUpperCase()}*\n`;
-  msg += `Paquete: ${selectedPack?.nombre || ''}\n`;
+  const contactName = document.getElementById('contactName').value.trim();
+  const contactPhone = document.getElementById('contactPhone').value.trim();
+
+  let msg = `✦ *BELLEZA & ESTILO*\n*${capitalize(eventType).toUpperCase()}*\n\n`;
+  if (selectedPack) msg += `Paquete: ${selectedPack.nombre}\n`;
   if (eventDate) msg += `Fecha: ${formatDate(eventDate)}\n`;
-  msg += '\nIntegrantes:\n';
-  active.forEach(m => {
-    const svcs = m.services.map(sid => findSelectedService(sid)?.name).filter(Boolean).join(', ');
-    msg += `- ${m.name || m.role}: ${svcs}\n`;
-  });
+  if (contactName) msg += `Contacto: ${contactName}`;
+  if (contactPhone) msg += ` · ${contactPhone}`;
+  if (contactName || contactPhone) msg += '\n';
+
+  if (lastSchedule) {
+    const { schedule, startMin, maxEnd } = lastSchedule;
+    msg += `\n📋 *TIMELINE DEL EVENTO*\n`;
+    msg += `Inicio: ${minToTime(startMin)}  ·  Fin estimado: ${minToTime(maxEnd)}\n\n`;
+    schedule.forEach(({ member, blocks }) => {
+      msg += `*${member.name || member.role}* (${member.role})\n`;
+      blocks.forEach(({ service, start, end }) => {
+        msg += `  ${minToTime(start)} – ${minToTime(end)}  ${service.name}\n`;
+      });
+      msg += '\n';
+    });
+  } else {
+    const active = members.filter(m => m.services.length > 0);
+    msg += '\nIntegrantes:\n';
+    active.forEach(m => {
+      const svcs = m.services.map(sid => findSelectedService(sid)?.name).filter(Boolean).join(', ');
+      msg += `- ${m.name || m.role}: ${svcs}\n`;
+    });
+  }
+
+  msg += `_Coordinado por Belleza & Estilo_`;
   window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 }
 

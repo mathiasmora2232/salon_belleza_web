@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="evento_timeline"
+              pageWidth="595" pageHeight="842"
+              columnWidth="535" leftMargin="30" rightMargin="30"
+              topMargin="25" bottomMargin="25"
+              uuid="b3c4d5e6-f7a8-9012-bcde-f01234567890">
+
+  <parameter name="EVENTO_TIPO"  class="java.lang.String" isForPrompting="false"/>
+  <parameter name="FECHA"        class="java.lang.String" isForPrompting="false"/>
+  <parameter name="HORA_INICIO"  class="java.lang.String" isForPrompting="false"/>
+  <parameter name="CONTACTO"     class="java.lang.String" isForPrompting="false"/>
+  <parameter name="TELEFONO"     class="java.lang.String" isForPrompting="false"/>
+  <parameter name="PAQUETE"      class="java.lang.String" isForPrompting="false"/>
+  <parameter name="INTEGRANTES"  class="java.lang.String" isForPrompting="false"/>
+  <parameter name="DETALLE"      class="java.lang.String" isForPrompting="false"/>
+  <parameter name="ESTADO"       class="java.lang.String" isForPrompting="false"/>
+  <parameter name="GENERADO_EN"  class="java.lang.String" isForPrompting="false"/>
+
+  <queryString><![CDATA[]]></queryString>
+
+  <!-- ── TITLE BAND ──────────────────────────────────────── -->
+  <title>
+    <band height="90" splitType="Stretch">
+
+      <!-- Dark header bar -->
+      <rectangle>
+        <reportElement x="0" y="0" width="535" height="60"
+                       backcolor="#2D2B2B" forecolor="#2D2B2B" uuid="hdr-bg"/>
+        <graphicElement><pen lineWidth="0.0"/></graphicElement>
+      </rectangle>
+
+      <!-- Brand name -->
+      <staticText>
+        <reportElement x="16" y="10" width="300" height="22"
+                       forecolor="#FFFFFF" uuid="brand"/>
+        <textElement verticalAlignment="Middle">
+          <font size="14" isBold="true" fontName="SansSerif"/>
+        </textElement>
+        <text><![CDATA[Belleza & Estilo]]></text>
+      </staticText>
+
+      <!-- Sub label -->
+      <staticText>
+        <reportElement x="16" y="34" width="300" height="16"
+                       forecolor="#C9A5A5" uuid="sub-lbl"/>
+        <textElement><font size="9" fontName="SansSerif"/></textElement>
+        <text><![CDATA[Reporte de Evento Grupal]]></text>
+      </staticText>
+
+      <!-- Generated date (top-right) -->
+      <textField>
+        <reportElement x="340" y="10" width="179" height="14"
+                       forecolor="#AAAAAA" uuid="gen-date"/>
+        <textElement textAlignment="Right">
+          <font size="7" fontName="SansSerif"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Generado: " + $P{GENERADO_EN}]]></textFieldExpression>
+      </textField>
+
+      <!-- Estado badge (top-right) -->
+      <textField>
+        <reportElement x="340" y="28" width="179" height="18"
+                       forecolor="#C9A5A5" uuid="estado-badge"/>
+        <textElement textAlignment="Right">
+          <font size="9" isBold="true" fontName="SansSerif"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$P{ESTADO}]]></textFieldExpression>
+      </textField>
+
+      <!-- Event title below bar -->
+      <textField isStretchWithOverflow="true">
+        <reportElement x="0" y="66" width="535" height="22"
+                       forecolor="#2D2B2B" uuid="ev-title"/>
+        <textElement>
+          <font size="14" isBold="true" fontName="SansSerif"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$P{EVENTO_TIPO} + "  —  " + $P{FECHA}]]></textFieldExpression>
+      </textField>
+
+    </band>
+  </title>
+
+  <!-- ── DETAIL BAND ──────────────────────────────────────── -->
+  <detail>
+    <band height="600" splitType="Stretch">
+
+      <!-- Info box background -->
+      <rectangle>
+        <reportElement x="0" y="2" width="535" height="110"
+                       backcolor="#F8F5F0" forecolor="#D8CFCA" uuid="info-bg"/>
+        <graphicElement><pen lineWidth="0.8"/></graphicElement>
+      </rectangle>
+
+      <!-- Col 1: Fecha -->
+      <staticText>
+        <reportElement x="14" y="12" width="100" height="12"
+                       forecolor="#888888" uuid="lbl-fecha"/>
+        <textElement><font size="7" isBold="true" fontName="SansSerif"/></textElement>
+        <text><![CDATA[FECHA]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="14" y="24" width="155" height="15"
+                       forecolor="#2D2B2B" uuid="val-fecha"/>
+        <textElement><font size="10" fontName="SansSerif"/></textElement>
+        <textFieldExpression><![CDATA[$P{FECHA}]]></textFieldExpression>
+      </textField>
+
+      <!-- Col 2: Hora -->
+      <staticText>
+        <reportElement x="182" y="12" width="100" height="12"
+                       forecolor="#888888" uuid="lbl-hora"/>
+        <textElement><font size="7" isBold="true" fontName="SansSerif"/></textElement>
+        <text><![CDATA[HORA INICIO]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="182" y="24" width="155" height="15"
+                       forecolor="#2D2B2B" uuid="val-hora"/>
+        <textElement><font size="10" fontName="SansSerif"/></textElement>
+        <textFieldExpression><![CDATA[$P{HORA_INICIO}]]></textFieldExpression>
+      </textField>
+
+      <!-- Col 3: Integrantes -->
+      <staticText>
+        <reportElement x="352" y="12" width="100" height="12"
+                       forecolor="#888888" uuid="lbl-integ"/>
+        <textElement><font size="7" isBold="true" fontName="SansSerif"/></textElement>
+        <text><![CDATA[INTEGRANTES]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="352" y="24" width="169" height="15"
+                       forecolor="#2D2B2B" uuid="val-integ"/>
+        <textElement><font size="10" fontName="SansSerif"/></textElement>
+        <textFieldExpression><![CDATA[$P{INTEGRANTES}]]></textFieldExpression>
+      </textField>
+
+      <!-- Col 1: Contacto -->
+      <staticText>
+        <reportElement x="14" y="48" width="100" height="12"
+                       forecolor="#888888" uuid="lbl-cont"/>
+        <textElement><font size="7" isBold="true" fontName="SansSerif"/></textElement>
+        <text><![CDATA[CONTACTO]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="14" y="60" width="155" height="15"
+                       forecolor="#2D2B2B" uuid="val-cont"/>
+        <textElement><font size="10" fontName="SansSerif"/></textElement>
+        <textFieldExpression><![CDATA[$P{CONTACTO}]]></textFieldExpression>
+      </textField>
+
+      <!-- Col 2: Teléfono -->
+      <staticText>
+        <reportElement x="182" y="48" width="100" height="12"
+                       forecolor="#888888" uuid="lbl-tel"/>
+        <textElement><font size="7" isBold="true" fontName="SansSerif"/></textElement>
+        <text><![CDATA[TELÉFONO]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="182" y="60" width="155" height="15"
+                       forecolor="#2D2B2B" uuid="val-tel"/>
+        <textElement><font size="10" fontName="SansSerif"/></textElement>
+        <textFieldExpression><![CDATA[$P{TELEFONO}]]></textFieldExpression>
+      </textField>
+
+      <!-- Col 3: Estado -->
+      <staticText>
+        <reportElement x="352" y="48" width="100" height="12"
+                       forecolor="#888888" uuid="lbl-est2"/>
+        <textElement><font size="7" isBold="true" fontName="SansSerif"/></textElement>
+        <text><![CDATA[ESTADO]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="352" y="60" width="169" height="15"
+                       forecolor="#2D2B2B" uuid="val-est2"/>
+        <textElement><font size="10" fontName="SansSerif"/></textElement>
+        <textFieldExpression><![CDATA[$P{ESTADO}]]></textFieldExpression>
+      </textField>
+
+      <!-- Paquete label -->
+      <staticText>
+        <reportElement x="14" y="86" width="80" height="12"
+                       forecolor="#888888" uuid="lbl-paq"/>
+        <textElement><font size="7" isBold="true" fontName="SansSerif"/></textElement>
+        <text><![CDATA[PAQUETE]]></text>
+      </staticText>
+      <textField isStretchWithOverflow="true">
+        <reportElement x="80" y="86" width="441" height="15"
+                       forecolor="#2D2B2B" uuid="val-paq"/>
+        <textElement><font size="10" fontName="SansSerif"/></textElement>
+        <textFieldExpression><![CDATA[$P{PAQUETE}]]></textFieldExpression>
+      </textField>
+
+      <!-- Divider -->
+      <line>
+        <reportElement x="0" y="120" width="535" height="1"
+                       forecolor="#C9A5A5" uuid="div1"/>
+        <graphicElement><pen lineWidth="1.5"/></graphicElement>
+      </line>
+
+      <!-- Section title: Detalle -->
+      <staticText>
+        <reportElement x="0" y="130" width="300" height="20"
+                       forecolor="#2D2B2B" uuid="sec-title"/>
+        <textElement>
+          <font size="11" isBold="true" fontName="SansSerif"/>
+        </textElement>
+        <text><![CDATA[Detalles del evento]]></text>
+      </staticText>
+
+      <!-- Detalle content -->
+      <textField isStretchWithOverflow="true" evaluationTime="Auto">
+        <reportElement x="0" y="155" width="535" height="420"
+                       forecolor="#3A3838" uuid="val-det"/>
+        <textElement>
+          <font size="10" fontName="SansSerif"/>
+          <paragraph lineSpacing="Double"/>
+        </textElement>
+        <textFieldExpression><![CDATA[$P{DETALLE}]]></textFieldExpression>
+      </textField>
+
+    </band>
+  </detail>
+
+  <!-- ── PAGE FOOTER ──────────────────────────────────────── -->
+  <pageFooter>
+    <band height="28">
+      <line>
+        <reportElement x="0" y="0" width="535" height="1"
+                       forecolor="#DDDDDD" uuid="foot-line"/>
+      </line>
+      <staticText>
+        <reportElement x="0" y="8" width="300" height="14"
+                       forecolor="#AAAAAA" uuid="foot-brand"/>
+        <textElement><font size="7" fontName="SansSerif"/></textElement>
+        <text><![CDATA[Belleza & Estilo — Sistema de gestión de citas y eventos]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="300" y="8" width="235" height="14"
+                       forecolor="#AAAAAA" uuid="foot-page"/>
+        <textElement textAlignment="Right">
+          <font size="7" fontName="SansSerif"/>
+        </textElement>
+        <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></textFieldExpression>
+      </textField>
+    </band>
+  </pageFooter>
+
+</jasperReport>
