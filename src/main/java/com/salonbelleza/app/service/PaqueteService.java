@@ -21,14 +21,17 @@ public class PaqueteService {
     private final PaqueteRepository paqueteRepository;
     private final ServicioRepository servicioRepository;
 
+    @Transactional(readOnly = true)
     public List<Paquete> findAll() {
         return paqueteRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Paquete> findByEstado(String estado) {
         return paqueteRepository.findByEstado(estado);
     }
 
+    @Transactional(readOnly = true)
     public Paquete findById(Long id) {
         return paqueteRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Paquete no encontrado: " + id));
@@ -36,6 +39,7 @@ public class PaqueteService {
 
     @Transactional
     public Paquete create(PaqueteRequest req) {
+        validate(req);
         Paquete paquete = Paquete.builder()
                 .nombre(req.getNombre())
                 .descripcion(req.getDescripcion())
@@ -56,6 +60,7 @@ public class PaqueteService {
 
     @Transactional
     public Paquete update(Long id, PaqueteRequest req) {
+        validate(req);
         Paquete paquete = findById(id);
         paquete.setNombre(req.getNombre());
         paquete.setDescripcion(req.getDescripcion());
@@ -89,6 +94,18 @@ public class PaqueteService {
                     .orden((short) (i + 1))
                     .build();
             paquete.getServicios().add(ps);
+        }
+    }
+
+    private void validate(PaqueteRequest req) {
+        if (req.getNombre() == null || req.getNombre().isBlank()) {
+            throw new IllegalArgumentException("El nombre del paquete es obligatorio.");
+        }
+        if (req.getPrecio() == null) {
+            throw new IllegalArgumentException("El precio del paquete es obligatorio.");
+        }
+        if (req.getServicioIds() == null || req.getServicioIds().isEmpty()) {
+            throw new IllegalArgumentException("Selecciona al menos un servicio para el paquete.");
         }
     }
 }

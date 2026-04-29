@@ -161,6 +161,10 @@
     const id         = document.getElementById('packId').value;
     const servicioIds = [...document.querySelectorAll('#svcChecks input:checked')]
       .map(cb => parseInt(cb.value));
+    if (!servicioIds.length) {
+      Toast.error('Selecciona al menos un servicio');
+      return;
+    }
 
     const body = {
       nombre:              document.getElementById('packNombre').value.trim(),

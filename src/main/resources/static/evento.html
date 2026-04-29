@@ -15,10 +15,13 @@
   <header class="enav">
     <a href="index.html" class="enav__logo">Belleza <span>&</span> Estilo</a>
     <nav class="enav__links">
-      <a href="index.html">Inicio</a>
+      <a href="index.html#servicios">Servicios</a>
+      <a href="index.html#catalogo">Catálogo</a>
+      <a href="index.html#equipo">Equipo</a>
+      <a href="index.html#galeria">Galería</a>
+      <a href="index.html#contacto">Contacto</a>
       <a href="#como-funciona">Cómo funciona</a>
       <a href="login.html" class="enav__btn--ghost">Iniciar sesión</a>
-      <a href="#formulario" class="enav__btn">Agendar</a>
     </nav>
   </header>
 
@@ -174,19 +177,19 @@
                 <div class="eradio-group">
                   <label class="eradio eradio--active" data-type="boda">
                     <input type="radio" name="eventType" value="boda" checked />
-                    <span class="eradio__icon">💍</span><span>Boda</span>
+                    <span class="eradio__icon" data-event-icon="boda"></span><span>Boda</span>
                   </label>
                   <label class="eradio" data-type="quinceaños">
                     <input type="radio" name="eventType" value="quinceaños" />
-                    <span class="eradio__icon">✨</span><span>Quinceañera</span>
+                    <span class="eradio__icon" data-event-icon="quince"></span><span>Quinceañera</span>
                   </label>
                   <label class="eradio" data-type="graduacion">
                     <input type="radio" name="eventType" value="graduacion" />
-                    <span class="eradio__icon">🎓</span><span>Graduación</span>
+                    <span class="eradio__icon" data-event-icon="graduacion"></span><span>Graduación</span>
                   </label>
                   <label class="eradio" data-type="otro">
                     <input type="radio" name="eventType" value="otro" />
-                    <span class="eradio__icon">🌟</span><span>Otro</span>
+                    <span class="eradio__icon" data-event-icon="otro"></span><span>Otro</span>
                   </label>
                 </div>
               </div>
@@ -284,6 +287,12 @@
       </div>
 
       <!-- Navegación del wizard -->
+      <div class="ev-testbar">
+        <button type="button" class="ebtn ebtn--outline" id="fillEventDemo">Cargar prueba</button>
+        <span class="ev-testbar__hint">Llena datos de boda para probar el flujo rápido.</span>
+      </div>
+      <div class="ev-form-status" id="eventFormStatus" hidden></div>
+
       <div class="ev-wizard-nav">
         <button type="button" class="ebtn ebtn--outline" id="evBack" hidden>Atrás</button>
         <button type="button" class="ebtn ebtn--primary" id="evNext">
