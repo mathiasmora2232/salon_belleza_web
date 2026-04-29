@@ -580,6 +580,8 @@ a { text-decoration: none; color: inherit; }
   justify-content: flex-end;
   gap: 12px;
   margin-top: 32px;
+  position: relative;
+  z-index: 1101;
 }
 
 .ev-testbar {

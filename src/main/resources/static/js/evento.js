@@ -6,6 +6,7 @@ let selectedPack = null;
 let members = [];
 let memberIdCounter = 0;
 let currentStep = 1;
+let packagesLoading = null;
 
 const ROLES = ['Novia', 'Mamá de la novia', 'Dama de honor', 'Hermana', 'Familiar', 'Amiga'];
 const COLORS = ['#C9A84C', '#8B6B8B', '#5A7B8B', '#7B8B5A', '#8B5E3C', '#5A5A8B', '#8B5A5A', '#6B8B6B'];
@@ -24,6 +25,15 @@ function wireWizard() {
     if (currentStep > 1) goToStep(currentStep - 1);
   });
   document.getElementById('addMember')?.addEventListener('click', () => addMember());
+  document.querySelector('.ev-packs')?.addEventListener('click', event => {
+    const card = event.target.closest('.ev-pack');
+    if (!card) return;
+    if (!card.dataset.packId) {
+      showEventStatus('Cargando paquetes reales. Intenta de nuevo en un momento.', '');
+      return;
+    }
+    selectPackage(card.dataset.packId);
+  });
 }
 
 function wireRadios() {
@@ -42,21 +52,30 @@ function wireActions() {
 }
 
 async function loadEventPackages() {
+  if (packagesLoading) return packagesLoading;
   const container = document.querySelector('.ev-packs');
   if (!container) return;
   container.innerHTML = '<p class="ev-panel__hint" style="grid-column:1/-1">Cargando paquetes desde la base...</p>';
 
-  try {
+  packagesLoading = (async () => {
     const res = await fetch('/api/v1/paquetes/estado/Activo');
     if (!res.ok) throw new Error('No se pudieron cargar paquetes');
     packageCatalog = await res.json();
     renderPackages(packageCatalog);
+    return packageCatalog;
+  })();
+
+  try {
+    return await packagesLoading;
   } catch {
     container.innerHTML = `
       <div class="ev-empty-pack">
         <strong>No se pudieron cargar los paquetes.</strong>
         <span>Revisa la base de datos o crea un paquete activo desde el panel.</span>
       </div>`;
+    return [];
+  } finally {
+    packagesLoading = null;
   }
 }
 
@@ -92,10 +111,6 @@ function renderPackages(packages) {
       </div>`;
   }).join('');
 
-  container.querySelectorAll('.ev-pack').forEach(card => {
-    card.addEventListener('click', () => selectPackage(card.dataset.packId));
-  });
-
   if (!selectedPack && packages[0]?.id) {
     selectPackage(packages[0].id);
   }
@@ -114,9 +129,9 @@ function selectPackage(packId) {
   showEventStatus(`Paquete seleccionado: ${selectedPack.nombre}`, '');
 }
 
-function handleNext() {
+async function handleNext() {
   if (currentStep === 1) {
-    if (!selectedPack) {
+    if (!selectedPack && !(await ensurePackageSelected())) {
       const panel = document.getElementById('evPanel1');
       panel.classList.add('ev-packs--shake');
       setTimeout(() => panel.classList.remove('ev-packs--shake'), 500);
@@ -140,6 +155,18 @@ function handleNext() {
   }
 
   shareWhatsAppAction();
+}
+
+async function ensurePackageSelected() {
+  if (selectedPack) return true;
+  if (!packageCatalog.length) {
+    showEventStatus('Cargando paquetes reales...', '');
+    await loadEventPackages();
+  }
+  if (!selectedPack && packageCatalog[0]?.id) {
+    selectPackage(packageCatalog[0].id);
+  }
+  return Boolean(selectedPack);
 }
 
 function goToStep(step) {
